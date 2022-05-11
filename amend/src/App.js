@@ -1,11 +1,20 @@
 import './App.css';
-// import Appbar from './Bars/Appbar';
-// import Signup from './Login//Signup';
-import Dash from './Login/Signin';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Profile from './Login/Profile';
+import Signin from './Login/Signin';
+import Signup from './Login/Signup';
+import Home from './Login/Home';
+// import Error from './Login/Errorpage';
 function App() {
   return (
-      // <Signup></Signup>
-      <Dash></Dash>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/Home" element={<Home />} />
+        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/signin" element={<Signin/>}/>
+      </Routes>
+    </Router>
       );
 }
 

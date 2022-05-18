@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {useHistory} from 'react-router-dom';
-import Signup from './Signup';
+import {useNavigate} from 'react-router-dom';
+// import Signup from './Signup';
 function Home (){
-    let history = useHistory();
+    let navigate = useNavigate();
     return(
         <div align="center">This is a Home Page. Please Sign in
          <button onClick={
              () =>{
-                 history.push('./Signin');
+                 navigate('./Signin');
                  }
                  }>Sign-up</button>
          <button>Sign-in</button>

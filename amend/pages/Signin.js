@@ -32,9 +32,17 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const loginData = {
       email: data.get('email'),
       password: data.get('password'),
+    };
+    fetch("/api/login",{
+      method:"POST",
+      body:JSON.stringify(loginData)
+    }).then((res)=>{
+      console.log("User Exists");
+    }).catch((err)=>{
+      console.log(err);
     });
   };
 

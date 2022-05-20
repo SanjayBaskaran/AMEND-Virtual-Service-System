@@ -11,7 +11,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MuiPhoneNumber from "material-ui-phone-number";
+
+import { CircularProgress, LinearProgress, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
+import { Dialog } from "@mui/material";
+
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 function Copyright(props) {
   return (
     <Typography
@@ -33,24 +41,76 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  //Form data
+
+  const firstName = React.useRef();
+  const lastName = React.useRef();
+  const email = React.useRef();
+  const password = React.useRef();
+  const phone = React.useRef();
+  //SnackBar for Status Message
+  const [open, setOpen] = React.useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  //Loading message
+  const [loading, setLoading] = React.useState(false);
+  //Form Submit Handler
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setLoading(true);
+    //Fetching form data
     const user = {
-      firstname: data.get("firstName"),
-      lastname: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      phone:data.get("phone"),
+      firstname: firstName.current.value,
+      lastname: lastName.current.value,
+      email: email.current.value,
+      password: password.current.value,
+      phone: phone.current.value,
     };
-    fetch("/api/login/newUser",{
-      method:"POST",
-      body: JSON.stringify(user)
-    }).then((data)=>{
-      console.log(data);
-    }).catch((err)=>{
-      console.log(err);
-    });
+    firstName.current.value  ="";
+    lastName.current.value  ="";
+    email.current.value  ="";
+    password.current.value  ="";
+    phone.current.value = "";
+    //Sending request to backend requesting to store the provided information
+    fetch("/api/login/newUser", {
+      method: "POST",
+      body: JSON.stringify(user),
+    })
+      .then((data) => {
+        console.log(data);
+        if (data.status == 201) {
+          setOpen((prevState) => {
+            return {
+              open: true,
+              severity: "success",
+              message: "Successfully created !",
+            };
+          });
+        } else {
+          setOpen((prevState) => {
+            return {
+              open: true,
+              severity: "error",
+              message: "Error in SignUp",
+            };
+          });
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setOpen((prevState) => {
+          return {
+            open: true,
+            severity: "error",
+            message: "Error in SignUp",
+          };
+        });
+
+        setLoading(false);
+      });
   };
 
   return (
@@ -71,15 +131,11 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  inputRef={firstName}
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -91,6 +147,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  inputRef={lastName}
                   required
                   fullWidth
                   id="lastName"
@@ -101,6 +158,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  inputRef={email}
                   required
                   fullWidth
                   id="email"
@@ -111,6 +169,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  inputRef={password}
                   required
                   fullWidth
                   name="password"
@@ -122,17 +181,7 @@ export default function SignUp() {
               </Grid>
 
               <Grid item xs={12}>
-              <MuiPhoneNumber
-                name="phone"
-                label="Phone"
-                type="tel"
-                  countryCodeEditable={false}
-                  defaultCountry="in"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  autoComplete="phone"
-                />
+              
               </Grid>
             </Grid>
             <Button
@@ -152,6 +201,38 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
+        <Snackbar
+          open={open.open}
+          autoHideDuration={6000}
+          onClose={(event, reason) => {
+            if (reason == "clickaway") {
+              return;
+            }
+            setOpen((prevState) => {
+              return {
+                open: false,
+                message: prevState.message,
+              };
+            });
+          }}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            severity={open.severity}
+            sx={{ width: "100%" }}
+          >
+            {open.message}
+          </MuiAlert>
+        </Snackbar>
+
+        <Dialog open={loading}>
+          <LinearProgress />
+          <DialogTitle>{"Registering User"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Processing</DialogContentText>
+          </DialogContent>
+        </Dialog>
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>

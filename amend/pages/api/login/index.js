@@ -7,9 +7,12 @@ export default async function SignUp(req,res){
         const db = client.db();
 
         const userCollection = db.collection("user");
-        const result = await userCollection.findOne({});
+        const result = await userCollection.findOne({email:data.email,password:data.password});
         console.log(result);
         client.close();
-        res.status(201).json({message:"User Created"});
+        if(result)
+            res.status(201).json({message:"User found"});
+        else
+            res.status(401).json({message:"User Credentials doesn't match"});
     }
 }

@@ -43,7 +43,6 @@ export default function SignUp() {
   const lastName = React.useRef();
   const email = React.useRef();
   const password = React.useRef();
-  const phone = React.useRef();
   //SnackBar for Status Message
   const [open, setOpen] = React.useState({
     open: false,
@@ -59,15 +58,13 @@ export default function SignUp() {
       firstName.current.value == "" ||
       lastName.current.value == "" ||
       email.current.value == "" ||
-      password.current.value == ""||
-      phone.current.value.length < 10||
-      isNaN(phone.current.value)
+      password.current.value == ""
     ) {
       setOpen((prevState) => {
         return {
           open: true,
           severity: "warning",
-          message: "Enter valid details",
+          message: "Enter all details",
         };
       });
       return;
@@ -80,7 +77,6 @@ export default function SignUp() {
       lastname: lastName.current.value,
       email: email.current.value,
       password: password.current.value,
-      phone:phone.current.value
     };
     //Sending request to backend requesting to store the provided information
     fetch("/api/login/newUser", {
@@ -109,7 +105,6 @@ export default function SignUp() {
         lastName.current.value = "";
         email.current.value = "";
         password.current.value = "";
-        phone.current.value = "";
         setLoading(false);
       })
       .catch((err) => {
@@ -125,7 +120,6 @@ export default function SignUp() {
         lastName.current.value = "";
         email.current.value = "";
         password.current.value = "";
-        phone.current.value = "";
         setLoading(false);
       });
   };
@@ -150,6 +144,7 @@ export default function SignUp() {
           </Typography>
           <Box
             component="form"
+            noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
@@ -200,21 +195,6 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={phone}
-                  pattern="[0-9]{10}"
-                  required
-                  fullWidth
-                  name="phone"
-                  label="Phone"
-                  type="tel"
-                  id="phone"
-                  autoComplete="phone"
-                />
-              </Grid>
-
             </Grid>
             <Button
               type="submit"

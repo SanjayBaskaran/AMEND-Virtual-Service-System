@@ -5,7 +5,7 @@ export default async function SignUp(req,res){
         console.log("In ");
         const data = JSON.parse(req.body);
         console.log(data);
-        const client = await MongoClient.connect("mongodb+srv://amend:amend@amend.r8ijt.mongodb.net/user");
+        const client = await MongoClient.connect("mongodb://localhost:27017/user");
         console.log("Connected");
         const db = client.db();
 

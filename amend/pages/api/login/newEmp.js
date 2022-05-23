@@ -4,10 +4,10 @@ export default async function SignUp(req,res){
     if(req.method === "POST"){
         console.log("In ");
         const data = JSON.parse(req.body);
-        const client = await MongoClient.connect("mongodb://localhost:27017/emp");
+        const client = await MongoClient.connect("mongodb://localhost:27017/amend");
         const db = client.db();
 
-        const userCollection = db.collection("user");
+        const userCollection = db.collection("emp");
         const result = await userCollection.insertOne(data);
         console.log(result);
         client.close();

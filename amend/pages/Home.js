@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled as test from "styled-components";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -27,10 +26,6 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-const rightAlign = styled.div`
-  display : relative;
-  right : 0px; 
-`;
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({

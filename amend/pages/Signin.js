@@ -40,7 +40,7 @@ export default function SignIn() {
       method:"POST",
       body:JSON.stringify(loginData)
     }).then((res)=>{
-      console.log("User Exists");
+      console.log("User Exists" + res.message);
     }).catch((err)=>{
       console.log(err);
     });

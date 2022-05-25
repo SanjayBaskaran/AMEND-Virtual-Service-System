@@ -133,7 +133,6 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div">
             Amend
           </Typography>
-            <rightAlign>
           <React.Fragment>
             <Box
               sx={{
@@ -219,7 +218,6 @@ export default function MiniDrawer() {
               </MenuItem>
             </Menu>
           </React.Fragment>
-          </rightAlign>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

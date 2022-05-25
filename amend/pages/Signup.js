@@ -96,6 +96,15 @@ export default function SignUp() {
               message: "Successfully created !",
             };
           });
+
+          fetch("/api/email",{
+            method:"POST",
+            body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND "})
+          }).then((res)=>{
+            console.log(res);
+          }).catch((err)=>{
+            console.log(err);
+          });
         } else {
           setOpen((prevState) => {
             return {

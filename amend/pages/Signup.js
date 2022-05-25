@@ -99,7 +99,7 @@ export default function SignUp() {
 
           fetch("/api/email",{
             method:"POST",
-            body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND "})
+            body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND ",subject:"Successful Signup"})
           }).then((res)=>{
             console.log(res);
           }).catch((err)=>{

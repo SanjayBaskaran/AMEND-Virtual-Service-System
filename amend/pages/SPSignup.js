@@ -16,7 +16,6 @@ import { Dialog } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import bcrypt from 'bcryptjs';
 
 function Copyright(props) {
   return (
@@ -76,57 +75,37 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     setLoading(true);
     //Fetching form data
+    const user = {
+      firstname: firstName.current.value,
+      lastname: lastName.current.value,
+      email: email.current.value,
+      password: password.current.value,
+      phone:phone.current.value
+    };
+    //Sending request to backend requesting to store the provided information
+    fetch("/api/login/newEmp", {
+      method: "POST",
+      body: JSON.stringify(user),
+    })
+      .then((data) => {
+        if (data.status == 201) {
+          setOpen((prevState) => {
+            return {
+              open: true,
+              severity: "success",
+              message: "Successfully created !",
+            };
+          });
 
-    bcrypt.hash(password.current.value,10,(err,hash)=>{
-      if(err)
-        return;
-      const user = {
-        firstname: firstName.current.value,
-        lastname: lastName.current.value,
-        email: email.current.value,
-        password: hash,
-        phone:phone.current.value
-      };
-      //Sending request to backend requesting to store the provided information
-      fetch("/api/login/newUser", {
-        method: "POST",
-        body: JSON.stringify(user),
-      })
-        .then((data) => {
-          if (data.status == 201) {
-            setOpen((prevState) => {
-              return {
-                open: true,
-                severity: "success",
-                message: "Successfully created !",
-              };
-            });
-  
-            fetch("/api/email",{
-              method:"POST",
-              body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND ",subject:"Successful Signup"})
-            }).then((res)=>{
-              console.log(res);
-            }).catch((err)=>{
-              console.log(err);
-            });
-          } else {
-            setOpen((prevState) => {
-              return {
-                open: true,
-                severity: "error",
-                message: "Error in SignUp",
-              };
-            });
-          }
-          firstName.current.value = "";
-          lastName.current.value = "";
-          email.current.value = "";
-          password.current.value = "";
-          phone.current.value = "";
-          setLoading(false);
-        })
-        .catch((err) => {
+          fetch("/api/email",{
+            method:"POST",
+            body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND. We look forward to maintain a healthy relationship! Cheers, Amend ",subject:"Successful Signup"})
+          }).then((res)=>{
+            console.log(res);
+          }).catch((err)=>{
+            console.log(err);
+          });
+        } else {
           setOpen((prevState) => {
             return {
               open: true,
@@ -134,16 +113,30 @@ export default function SignUp() {
               message: "Error in SignUp",
             };
           });
-  
-          firstName.current.value = "";
-          lastName.current.value = "";
-          email.current.value = "";
-          password.current.value = "";
-          phone.current.value = "";
-          setLoading(false);
-        });  
-    });
-    
+        }
+        firstName.current.value = "";
+        lastName.current.value = "";
+        email.current.value = "";
+        password.current.value = "";
+        phone.current.value = "";
+        setLoading(false);
+      })
+      .catch((err) => {
+        setOpen((prevState) => {
+          return {
+            open: true,
+            severity: "error",
+            message: "Error in SignUp",
+          };
+        });
+
+        firstName.current.value = "";
+        lastName.current.value = "";
+        email.current.value = "";
+        password.current.value = "";
+        phone.current.value = "";
+        setLoading(false);
+      });
   };
 
   return (
@@ -162,7 +155,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Service Provider - Sign up
           </Typography>
           <Box
             component="form"
@@ -242,7 +235,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="./Signin" variant="body2">
+                <Link href="./SPSignin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

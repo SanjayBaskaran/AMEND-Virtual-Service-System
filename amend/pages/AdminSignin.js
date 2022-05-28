@@ -12,7 +12,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useRouter } from 'next/router';
 
 function Copyright(props) {
   return (
@@ -30,7 +29,6 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const router = useRouter();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -42,10 +40,7 @@ export default function SignIn() {
       method:"POST",
       body:JSON.stringify(loginData)
     }).then((res)=>{
-      if(res){
-        console.log("Res");
-        router.replace("/Home");
-      }
+      console.log("User Exists" + res.message);
     }).catch((err)=>{
       console.log(err);
     });
@@ -67,7 +62,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Admin - Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -106,11 +101,6 @@ export default function SignIn() {
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/Signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>

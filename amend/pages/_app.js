@@ -157,7 +157,6 @@ function MyApp({ Component, pageProps }) {
       </MenuItem>
     </Menu>
   );
-  console.log(router.asPath);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -169,10 +168,10 @@ function MyApp({ Component, pageProps }) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-              AMEND
+            AMEND
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            {(!(router.asPath == "/Signup" || router.asPath == "/Signin")) && (
+            {(!(router.asPath == "/Signup" || router.asPath == "/Signin" || router.asPath == "/SPSignup" || router.asPath == "/SPSignin" || router.asPath=="/AdminSignin")) && (
               <>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <IconButton

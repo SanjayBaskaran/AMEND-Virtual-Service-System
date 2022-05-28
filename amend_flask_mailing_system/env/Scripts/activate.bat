@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\Codings\Python\env
+set VIRTUAL_ENV=E:\AMEND-Virtual-Service-System\amend_flask_mailing_system\env
 
 if not defined PROMPT set PROMPT=$P$G
 

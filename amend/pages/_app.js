@@ -160,7 +160,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" sx={{bgcolor: (router.asPath == "/otp")?"warning.main":"primar.main" }}>
           <Toolbar>
             <Typography
               variant="h6"

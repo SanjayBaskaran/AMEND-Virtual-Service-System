@@ -1,116 +1,94 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { LinearProgress, Snackbar, TextField } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
+import { Dialog } from "@mui/material";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import bcrypt from "bcryptjs";
 import OtpInput from "react-otp-input";
-// import OTPInput, { ResendOTP } from "otp-input-react";
-// import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-// import "./styles.css";
-
-const useStyles = makeStyles(theme => ({
-  grid: {
-    backgroundColor: "grey",
-    height: "50vh",
-    textAlign: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  }
-}));
-
-export default function App() {
-  const classes = useStyles();
-  const theme = useTheme();
+function Copyright(props) {
   return (
-    <Container component="main" maxWidth="sm">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Grid
-          container
-          style={{ backgroundColor: "white" }}
-          className={classes.grid}
-          justifyContent="center"
-          alignItems="center"
-          spacing={3}
+    <Typography
+      variant="body1"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="./index">
+        Amend.in
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+
+export default function Otp() {
+  const [otp, setOtp] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <Grid item container justifyContent="center">
-            <Grid item container alignItems="center" direction="column">
-              <Grid item>
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
-              </Grid>
-              <Grid item>
-                <Typography component="h1" variant="h5">
-                  Verification Code
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} textAlign="center">
-            <Paper elevation={0}>
-              <Typography variant ="h6">
+          <Avatar sx={{ m: 1, bgcolor: "error.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            OTP Verification
+          </Typography>
+          <Box>
+            <Grid item xs={12} textAlign="center">
+              <Typography variant="h6">
                 Please enter the verification code sent to your email
               </Typography>
-            </Paper>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            container
-            justifyContent="center"
-            alignItems="center"
-            direction="column"
-          >
-            <Grid container item spacing={3} justifyContent="center">
+            </Grid>
+          </Box>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
               <OtpInput
-                separator={
-                  <span>
-                    <strong>.</strong>
-                  </span>
-                }
+                value={otp}
+                onChange={(otp) => {
+                  setOtp(otp);
+                  console.log(otp);
+                }}
                 inputStyle={{
                   width: "3rem",
                   height: "3rem",
                   margin: "0 1rem",
                   fontSize: "2rem",
                   borderRadius: 4,
-                  border: "1px solid rgba(0,0,0,0.3)"
+                  border: "2px solid #000000",
                 }}
               />
             </Grid>
-            <Grid item>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Verify
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </div> 
-    </Container>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }

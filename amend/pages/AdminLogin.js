@@ -17,7 +17,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="./Home">
+      <Link color="inherit" href="./index">
       Amend.in
       </Link>{' '}
       {new Date().getFullYear()}
@@ -62,7 +62,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Admin - Sign in
+            Admin - Log in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField

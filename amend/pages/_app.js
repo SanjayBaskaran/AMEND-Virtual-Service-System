@@ -171,7 +171,7 @@ function MyApp({ Component, pageProps }) {
             AMEND
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            {(!(router.asPath == "/Signup" || router.asPath == "/Signin" || router.asPath == "/SPSignup" || router.asPath == "/SPSignin" || router.asPath=="/AdminLogin")) && (
+            {(!(router.asPath == "/Signup" || router.asPath == "/Signin" || router.asPath == "/SPSignup" || router.asPath == "/SPSignin" || router.asPath == "/AdminLogin" || router.asPath == "/otp")) && (
               <>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <IconButton

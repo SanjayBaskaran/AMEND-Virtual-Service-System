@@ -26,7 +26,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="./Home">
+      <Link color="inherit" href="./index">
         Amend.in
       </Link>{" "}
       {new Date().getFullYear()}

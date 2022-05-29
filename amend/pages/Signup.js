@@ -93,6 +93,7 @@ export default function SignUp() {
         body: JSON.stringify(user),
       })
         .then((data) => {
+          console.log(data);
           if (data.status == 201) {
             setOpen((prevState) => {
               return {
@@ -110,7 +111,17 @@ export default function SignUp() {
             }).catch((err)=>{
               console.log(err);
             });
-          } else {
+          }else if(data.status==401) {
+            setOpen((prevState) => {
+              return {
+                open: true,
+                severity: "error",
+                message: "Email id already exists!",
+              };
+            });
+          } 
+          
+          else {
             setOpen((prevState) => {
               return {
                 open: true,

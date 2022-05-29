@@ -105,7 +105,17 @@ export default function SignUp() {
           }).catch((err)=>{
             console.log(err);
           });
-        } else {
+        }else if(data.status==401) {
+          setOpen((prevState) => {
+            return {
+              open: true,
+              severity: "error",
+              message: "Email id already exist!",
+            };
+          });
+        } 
+        
+        else {
           setOpen((prevState) => {
             return {
               open: true,

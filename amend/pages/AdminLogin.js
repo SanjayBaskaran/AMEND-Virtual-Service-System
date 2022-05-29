@@ -33,10 +33,10 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const loginData = {
-      email: data.get('email'),
+      username: data.get('Username'),
       password: data.get('password'),
     };
-    fetch("/api/login",{
+    fetch("/api/login/admin",{
       method:"POST",
       body:JSON.stringify(loginData)
     }).then((res)=>{
@@ -69,10 +69,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="uname"
+              label="Username"
+              name="Username"
+              autoComplete="username"
               autoFocus
             />
             <TextField

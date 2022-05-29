@@ -47,11 +47,11 @@ export default function App() {
           container
           style={{ backgroundColor: "white" }}
           className={classes.grid}
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           spacing={3}
         >
-          <Grid item container justify="center">
+          <Grid item container justifyContent="center">
             <Grid item container alignItems="center" direction="column">
               <Grid item>
                 <Avatar className={classes.avatar}>
@@ -76,11 +76,11 @@ export default function App() {
             item
             xs={12}
             container
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             direction="column"
           >
-            <Grid item spacing={3} justify="center">
+            <Grid container item spacing={3} justifyContent="center">
               <OtpInput
                 separator={
                   <span>

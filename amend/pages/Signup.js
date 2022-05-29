@@ -2,7 +2,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -37,6 +36,17 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
+function generateOTP() {
+          
+  // Declare a digits variable 
+  // which stores all digits
+  var digits = '0123456789';
+  let OTP = '';
+  for (let i = 0; i < 4; i++ ) {
+      OTP += digits[Math.floor(Math.random() * 10)];
+  }
+  return OTP;
+}
 
 export default function SignUp() {
   //Form data
@@ -87,6 +97,20 @@ export default function SignUp() {
         password: hash,
         phone:phone.current.value
       };
+      fetch("/api/email/emailExists",{
+        method:"POST",
+        body:JSON.stringify()
+      }
+      )
+      const otp = generateOTP();
+      fetch("/api/email",{
+        method:"POST",
+        body:JSON.stringify({semail:user.email,msg:"Your otp for AMEND is "+otp,subject:"OTP"})
+      }).then((res)=>{
+        
+      }).catch((err)=>{
+        console.log(err);
+      });
       //Sending request to backend requesting to store the provided information
       fetch("/api/login/newUser", {
         method: "POST",
@@ -102,7 +126,7 @@ export default function SignUp() {
                 message: "Successfully created !",
               };
             });
-  
+            
             fetch("/api/email",{
               method:"POST",
               body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND ",subject:"Successful Signup"})

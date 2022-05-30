@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 export default async function SignUp(req, res) {
   if (req.method === "POST") {
     const data = JSON.parse(req.body);
-    console.log(data,"TESTSTETST");
+    // console.log(data,"TESTSTETST");
     const client = await MongoClient.connect("mongodb://localhost:27017/amend");
     const db = await client.db();
 

@@ -15,7 +15,7 @@ import { Dialog } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 function Copyright(props) {
   return (
@@ -37,13 +37,12 @@ function Copyright(props) {
 
 const theme = createTheme();
 function generateOTP() {
-          
-  // Declare a digits variable 
+  // Declare a digits variable
   // which stores all digits
-  var digits = '0123456789';
-  let OTP = '';
-  for (let i = 0; i < 4; i++ ) {
-      OTP += digits[Math.floor(Math.random() * 10)];
+  var digits = "0123456789";
+  let OTP = "";
+  for (let i = 0; i < 4; i++) {
+    OTP += digits[Math.floor(Math.random() * 10)];
   }
   return OTP;
 }
@@ -70,8 +69,8 @@ export default function SignUp() {
       firstName.current.value == "" ||
       lastName.current.value == "" ||
       email.current.value == "" ||
-      password.current.value == ""||
-      phone.current.value.length < 10||
+      password.current.value == "" ||
+      phone.current.value.length < 10 ||
       isNaN(phone.current.value)
     ) {
       setOpen((prevState) => {
@@ -87,32 +86,50 @@ export default function SignUp() {
     setLoading(true);
     //Fetching form data
 
-    bcrypt.hash(password.current.value,10,(err,hash)=>{
-      if(err)
-        return;
+    bcrypt.hash(password.current.value, 10, async (err, hash) => {
+      if (err) return;
       const user = {
         firstname: firstName.current.value,
         lastname: lastName.current.value,
         email: email.current.value,
         password: hash,
-        phone:phone.current.value
+        phone: phone.current.value,
       };
-      fetch("/api/email/emailExists",{
-        method:"POST",
-        body:JSON.stringify()
+      const userExists = await fetch("/api/email/emailExists", {
+        method: "POST",
+        body: JSON.stringify({ email: user.email }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .catch((err) => {
+          setOpen((prevState) => {
+            return {
+              open: true,
+              severity: "error",
+              message: "Email id already exists",
+            };
+          });
+          return;
+        });
+      console.log("test", userExists);
+      if (!userExists.exists) {
+        const otp = generateOTP();
+        const otpResponse = await fetch("/api/email", {
+          method: "POST",
+          body: JSON.stringify({
+            semail: user.email,
+            msg: "Your otp for AMEND is " + otp,
+            subject: "OTP",
+          }),
+        })
+          .then((res) => {})
+          .catch((err) => {
+            console.log(err);
+          });
       }
-      )
-      const otp = generateOTP();
-      fetch("/api/email",{
-        method:"POST",
-        body:JSON.stringify({semail:user.email,msg:"Your otp for AMEND is "+otp,subject:"OTP"})
-      }).then((res)=>{
-        
-      }).catch((err)=>{
-        console.log(err);
-      });
       //Sending request to backend requesting to store the provided information
-      fetch("/api/login/newUser", {
+      const createResponse = await fetch("/api/login/newUser", {
         method: "POST",
         body: JSON.stringify(user),
       })
@@ -126,16 +143,22 @@ export default function SignUp() {
                 message: "Successfully created !",
               };
             });
-            
-            fetch("/api/email",{
-              method:"POST",
-              body:JSON.stringify({semail:user.email,msg:"Thanks for registering into AMEND ",subject:"Successful Signup"})
-            }).then((res)=>{
-              console.log(res);
-            }).catch((err)=>{
-              console.log(err);
-            });
-          }else if(data.status==401) {
+
+            fetch("/api/email", {
+              method: "POST",
+              body: JSON.stringify({
+                semail: user.email,
+                msg: "Thanks for registering into AMEND ",
+                subject: "Successful Signup",
+              }),
+            })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else if (data.status == 401) {
             setOpen((prevState) => {
               return {
                 open: true,
@@ -143,9 +166,7 @@ export default function SignUp() {
                 message: "Email id already exists!",
               };
             });
-          } 
-          
-          else {
+          } else {
             setOpen((prevState) => {
               return {
                 open: true,
@@ -169,16 +190,15 @@ export default function SignUp() {
               message: "Error in SignUp",
             };
           });
-  
+
           firstName.current.value = "";
           lastName.current.value = "";
           email.current.value = "";
           password.current.value = "";
           phone.current.value = "";
           setLoading(false);
-        });  
+        });
     });
-    
   };
 
   return (
@@ -199,11 +219,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -265,7 +281,6 @@ export default function SignUp() {
                   autoComplete="phone"
                 />
               </Grid>
-
             </Grid>
             <Button
               type="submit"

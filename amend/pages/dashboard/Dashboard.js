@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 import Orders from './Orders';
+import Services from '../../component/Services';
 
 function Copyright(props) {
   return (
@@ -188,12 +189,7 @@ function DashboardContent() {
                   {/* <Deposits /> */}
                 {/* </Paper> */}
               </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
-              </Grid>
+              <Services/>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>

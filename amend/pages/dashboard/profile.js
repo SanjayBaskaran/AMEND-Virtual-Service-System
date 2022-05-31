@@ -1,28 +1,23 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EmailIcon from "@mui/icons-material/Email";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import {
   Avatar,
   Grid,
   List,
   ListItem,
-  ListItemAvatar,
-  Stack,
+  ListItemAvatar
 } from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
-import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 // import FileUpload from "react-mui-fileuploader"
 export default function BasicCard(props) {
   const [open, setOpen] = React.useState(false);
@@ -47,7 +42,7 @@ export default function BasicCard(props) {
       body: formData,
     });
   };
-  // console.log(props);
+  console.log(props);
   return (
     <>
       <Card sx={{ minWidth: 275 }}>
@@ -141,10 +136,10 @@ export async function getServerSideProps(context) {
   // console.log(data);
   let dataxx;
   console.log(data);
-  if (data.image.data == undefined) {
-    dataxx = "data:image/png;base64," + data.image.data;
-  } else {
+  if (typeof data == undefined) {
     dataxx = "";
+  } else {
+    dataxx = "data:image/png;base64," + data?.image?.data;
   }
   // dataxx = "data:image/png;base64," + data.image.data;
   // const dataxx = "data:image/png;base64," + data.image.data;

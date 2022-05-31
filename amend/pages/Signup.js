@@ -2,7 +2,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,6 +15,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import bcrypt from "bcryptjs";
+import Link from "next/link";
 
 function Copyright(props) {
   return (
@@ -26,7 +26,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="./index">
+      <Link color="inherit" href="/">
         Amend.in
       </Link>{" "}
       {new Date().getFullYear()}
@@ -292,7 +292,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="./Signin" variant="body2">
+                <Link href="/Signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -17,6 +17,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import bcrypt from "bcryptjs";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 function Copyright(props) {
   return (
     <Typography
@@ -58,6 +59,7 @@ export default function SignUp() {
   const [otp, setOtp] = useState("");
   const [otpx, setOtpx] = useState("");
   const [signIned, setSignIned] = React.useState(false);
+  const router = useRouter();
   const handleSubmitx = async (event) => {
     event.preventDefault();
     if (otpx === otp) {
@@ -80,13 +82,32 @@ export default function SignUp() {
             fetch("/api/email", {
               method: "POST",
               body: JSON.stringify({
-                semail: user.email,
+                semail: userx.email,
                 msg: "Thanks for registering into AMEND ",
                 subject: "Successful Signup",
               }),
             })
               .then((res) => {
-                console.log(res);
+                fetch("/api/token/jwtCreation", {
+                  method: "POST",
+                  body: JSON.stringify(userx),
+                })
+                  .then((res) => {
+                    setLoading(true);
+                    res
+                      .json()
+                      .then((resx) => {
+                        console.log(resx);
+                        localStorage.setItem("token", resx.token);
+                        router.replace("/dashboard/profile");
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               })
               .catch((err) => {
                 console.log(err);

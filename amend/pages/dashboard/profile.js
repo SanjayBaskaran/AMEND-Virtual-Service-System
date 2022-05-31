@@ -17,6 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import jsonwebtoken from "jsonwebtoken";
 import * as React from "react";
 // import FileUpload from "react-mui-fileuploader"
 export default function BasicCard(props) {
@@ -141,6 +142,7 @@ export async function getServerSideProps(context) {
   } else {
     dataxx = "data:image/png;base64," + data?.image?.data;
   }
+ 
   // dataxx = "data:image/png;base64," + data.image.data;
   // const dataxx = "data:image/png;base64," + data.image.data;
   return {

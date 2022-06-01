@@ -46,6 +46,7 @@ export default function BasicCard(props) {
   console.log(props);
   return (
     <>
+    
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Grid container spacing={0} direction="column" alignItems="center">

@@ -19,7 +19,13 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import BookIcon from "@mui/icons-material/Book";
 import { useRouter } from "next/router";
-
+import MuiDrawer from "@mui/material/Drawer";
+import { CssBaseline, Divider, Drawer, Grid, List } from "@mui/material";
+import { mainListItems, secondaryListItems } from "./dashboard/listItems";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useTheme } from "@emotion/react";
+import { Container, createTheme } from "@mui/system";
+import { ThemeProvider } from "styled-components";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -59,8 +65,42 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 function MyApp({ Component, pageProps }) {
+  const drawerWidth = 240;
+
+  const [open, setOpen] = React.useState(true);
+
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    "& .MuiDrawer-paper": {
+      position: "relative",
+      whiteSpace: "nowrap",
+      width: drawerWidth,
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: "border-box",
+      ...(!open && {
+        overflowX: "hidden",
+        transition: theme.transitions.create("width", {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up("sm")]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }));
+  const toggleDrawer = () => {
+    console.log("TEST", open);
+    setOpen((prevState) => {
+      return !prevState;
+    });
+  };
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -84,6 +124,7 @@ function MyApp({ Component, pageProps }) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const mdTheme = createTheme();
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -160,7 +201,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{bgcolor: (router.asPath == "/otp")?"warning.main":"primar.main" }}>
+        <AppBar
+          position="static"
+          sx={{
+            bgcolor: router.asPath == "/otp" ? "warning.main" : "primar.main",
+          }}
+        >
           <Toolbar>
             <Typography
               variant="h6"
@@ -168,10 +214,17 @@ function MyApp({ Component, pageProps }) {
               component="div"
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-            AMEND
+              AMEND
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            {(!(router.asPath == "/Signup" || router.asPath == "/Signin" || router.asPath == "/SPSignup" || router.asPath == "/SPSignin" || router.asPath == "/AdminLogin" || router.asPath == "/otp")) && (
+            {!(
+              router.asPath == "/Signup" ||
+              router.asPath == "/Signin" ||
+              router.asPath == "/SPSignup" ||
+              router.asPath == "/SPSignin" ||
+              router.asPath == "/AdminLogin" ||
+              router.asPath == "/otp"
+            ) && (
               <>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <IconButton
@@ -216,11 +269,123 @@ function MyApp({ Component, pageProps }) {
             )}
           </Toolbar>
         </AppBar>
+
         {renderMobileMenu}
         {renderMenu}
       </Box>
-
-      <Component {...pageProps} />
+      <ThemeProvider theme={mdTheme}>
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          {/* <AppBar position="absolute" open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Amend - Dashboard
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar> */}
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [1],
+              }}
+            >
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              {mainListItems}
+              <Divider sx={{ my: 1 }} />
+              {secondaryListItems}
+            </List>
+          </Drawer>
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: "100vh",
+              overflow: "auto",
+            }}
+          >
+            <Toolbar />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Grid container spacing={3}>
+                {/* Chart */}
+                <Grid item xs={12} md={8} lg={9}>
+                  {/* <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                  <Chart />
+                </Paper> */}
+                </Grid>
+                {/* Recent Deposits */}
+                <Grid item xs={12} md={4} lg={3}>
+                  {/* <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }} */}
+                  {/* > */}
+                  {/* <Deposits /> */}
+                  {/* </Paper> */}
+                </Grid>
+                <Grid
+                  container
+                  spacing={0}
+                  direction="column"
+                  alignItems="center"
+                >
+                  <Grid item xs={3}>
+                    <Component {...pageProps} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Container>
+          </Box>
+        </Box>
+      </ThemeProvider>
     </>
   );
 }

@@ -40,20 +40,30 @@ export default function DashboardContent() {
             <Card variant="outlined">{card}</Card>
           </Item>
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Item>xs=2</Item>
+        <Grid item>
+          <Item>
+            <Card variant="outlined">{card}</Card>
+          </Item>
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Item>xs=2</Item>
+        <Grid item>
+          <Item>
+            <Card variant="outlined">{card}</Card>
+          </Item>
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Item>xs=2</Item>
+        <Grid item>
+          <Item>
+            <Card variant="outlined">{card}</Card>
+          </Item>
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Item>xs=2</Item>
+        <Grid item>
+          <Item>
+            <Card variant="outlined">{card}</Card>
+          </Item>
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
-          <Item>xs=2</Item>
+        <Grid item>
+          <Item>
+            <Card variant="outlined">{card}</Card>
+          </Item>
         </Grid>
       </Grid>
     </Box>

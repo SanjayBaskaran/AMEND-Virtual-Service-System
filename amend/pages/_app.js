@@ -183,11 +183,9 @@ export default function DashboardContent({ Component, pageProps }) {
                 spacing={0}
                 direction="column"
                 alignItems="center"
-                style={{ minHeight: "100vh" }}
               >
-                <Grid item xs={3}>
                   <Component {...pageProps} />
-                </Grid>
+                
               </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />

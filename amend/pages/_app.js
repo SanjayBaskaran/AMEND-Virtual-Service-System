@@ -92,7 +92,6 @@ export default function DashboardContent({ Component, pageProps }) {
     setOpen(!open);
   };
   const router = useRouter();
-  console.log(router);
   const displayDrawer = !(
     router.asPath == "/Signup" ||
     router.asPath == "/Signin" ||
@@ -100,7 +99,6 @@ export default function DashboardContent({ Component, pageProps }) {
     router.asPath == "/SPSignin"||
     router.asPath == "/uploadVerification"
   );
-  console.log(displayDrawer);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>

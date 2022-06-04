@@ -119,6 +119,7 @@ export default function BasicCard(props) {
   );
 }
 export async function getServerSideProps(context) {
+  console.log(localStorage.getItem("token"));
   const data = await fetch("http://localhost:3000/api/getImage", {
     mode: "cors",
   })

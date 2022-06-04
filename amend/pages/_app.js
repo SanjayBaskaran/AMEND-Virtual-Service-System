@@ -97,7 +97,8 @@ export default function DashboardContent({ Component, pageProps }) {
     router.asPath == "/Signup" ||
     router.asPath == "/Signin" ||
     router.asPath == "/SPSignup" ||
-    router.asPath == "/SPSignin"
+    router.asPath == "/SPSignin"||
+    router.asPath == "/uploadVerification"
   );
   console.log(displayDrawer);
   return (

@@ -18,23 +18,6 @@ import bcrypt from "bcryptjs";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body1"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        Amend.in
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 function generateOTP() {
@@ -339,8 +322,6 @@ export default function SignUp() {
                 </Grid>
               </Box>
             </Box>
-
-            <Copyright sx={{ mt: 5 }} />
           </Container>
         </ThemeProvider>
       )}

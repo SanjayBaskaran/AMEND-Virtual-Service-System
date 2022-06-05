@@ -14,9 +14,16 @@ import Typography from "@mui/material/Typography";
 import jsonwebtoken from "jsonwebtoken";
 import Snackbar from "@mui/material/Snackbar";
 import LinearProgress from "@mui/material/LinearProgress";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+
+import Stack from "@mui/material/Stack";
 import { useEffect, useRef, useState } from "react";
 // import FileUpload from "react-mui-fileuploader"
 export default function Profile(props) {
+  const Input = styled("input")({
+    display: "none",
+  });
   const [SnackbarDetails, setSnackbarDetails] = useState({
     openS: false,
     vertical: "bottom",
@@ -30,7 +37,7 @@ export default function Profile(props) {
   };
   const { vertical, horizontal, openS } = SnackbarDetails;
   const [uploadLoading, setUploadLoading] = useState(false);
-  const [userData, setUserdata] = useState({});
+  const [userData, setUserdata] = useState({ verified: false });
   const formRef = useRef();
 
   const [open, setOpen] = useState(false);
@@ -45,7 +52,7 @@ export default function Profile(props) {
   const handleFilesChange = (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
-    formData.append("name", userData.email + "U");
+    formData.append("name", userData.email + "E");
     setUploadLoading(true);
     fetch("http://localhost:3001/image-upload", {
       method: "POST",
@@ -55,7 +62,7 @@ export default function Profile(props) {
         if (res.ok) {
           fetch("/api/getImage", {
             method: "POST",
-            body: JSON.stringify({ name: userData.email + "U" }),
+            body: JSON.stringify({ name: userData.email + "E" }),
             mode: "cors",
           })
             .then((res) => {
@@ -89,7 +96,7 @@ export default function Profile(props) {
       });
   };
   useEffect(() => {
-    const datax = fetch("/api/user/loadUser", {
+    const datax = fetch("/api/user/loadUserEmp", {
       method: "POST",
       body: JSON.stringify({ email: localStorage.getItem("token") }),
     })
@@ -99,7 +106,7 @@ export default function Profile(props) {
             console.log(resx.details);
             fetch("/api/getImage", {
               method: "POST",
-              body: JSON.stringify({ name: resx.details.email + "U" }),
+              body: JSON.stringify({ name: resx.details.email + "E" }),
               mode: "cors",
             })
               .then((res) => {
@@ -134,128 +141,109 @@ export default function Profile(props) {
 
   return (
     <>
-      <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Grid container spacing={0} direction="column" alignItems="center">
-            <Grid item>
-              <Avatar
-                alt="Remy Sharp"
-                src={userData.image}
-                sx={{ width: 150, height: 150 }}
-                onClick={handleClickOpen}
-              />
-            </Grid>
-
-            <Grid item>
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                  bgcolor: "background.paper",
-                }}
+      {!(userData.verified == "not yet") && (
+        <>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
               >
-                <ListItem>
-                  <ListItemAvatar>
-                    <AccountCircleIcon />
-                  </ListItemAvatar>
-                  <Typography sx={{ mb: 1.5 }} color="text.primary">
-                    {userData.firstname + " " + userData.lastname}
-                  </Typography>
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <EmailIcon />
-                  </ListItemAvatar>
-                  <Typography variant="body2">{userData.email}</Typography>
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <LocalPhoneIcon />
-                  </ListItemAvatar>
-                  <Typography variant="body2">{userData.phone}</Typography>
-                </ListItem>
-              </List>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+                <Grid item>
+                  <Avatar
+                    alt={userData.firstname}
+                    src={userData.image}
+                    sx={{ width: 150, height: 150 }}
+                    onClick={handleClickOpen}
+                  />
+                </Grid>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Update Profile Photo</DialogTitle>
-        {!uploadLoading && (
-          <form method="POST" ref={formRef} onSubmit={handleFilesChange}>
-            <DialogContent>
-              <input type="file" name="image" />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Upload
-              </Button>
-            </DialogActions>
-          </form>
-        )}
-        {uploadLoading && <LinearProgress />}
-      </Dialog>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={openS}
-        onClose={handleSnackbarClose}
-        message="I love snacks"
-        key={vertical + horizontal}
-      />
+                <Grid item>
+                  <List
+                    sx={{
+                      width: "100%",
+                      maxWidth: 360,
+                      bgcolor: "background.paper",
+                    }}
+                  >
+                    <ListItem>
+                      <ListItemAvatar>
+                        <AccountCircleIcon />
+                      </ListItemAvatar>
+                      <Typography sx={{ mb: 1.5 }} color="text.primary">
+                        {userData.firstname + " " + userData.lastname}
+                      </Typography>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ListItemAvatar>
+                        <EmailIcon />
+                      </ListItemAvatar>
+                      <Typography variant="body2">{userData.email}</Typography>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ListItemAvatar>
+                        <LocalPhoneIcon />
+                      </ListItemAvatar>
+                      <Typography variant="body2">{userData.phone}</Typography>
+                    </ListItem>
+                  </List>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Update Profile Photo</DialogTitle>
+            {!uploadLoading && (
+              <form method="POST" ref={formRef} onSubmit={handleFilesChange}>
+                <DialogContent>
+                  <input type="file" name="image" />
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Upload
+                  </Button>
+                </DialogActions>
+              </form>
+            )}
+            {uploadLoading && <LinearProgress />}
+          </Dialog>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={openS}
+            onClose={handleSnackbarClose}
+            message="I love snacks"
+            key={vertical + horizontal}
+          />
+        </>
+      )}
+      {(userData.verified == "not yet") && (
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <Typography variant="body2">
+            Upload any document for verification (aadhar card/driving license)
+          </Typography>
+
+          <label htmlFor="contained-button-file">
+            <Input
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+            />
+            <Button variant="contained" component="span">
+              Upload
+            </Button>
+          </label>
+        </Stack>
+      )}
     </>
   );
 }
-// export async function getStaticProps() {
-
-//   if (typeof window !== 'undefined') {
-//     // Perform localStorage action
-//     const item = window.localStorage.getItem('token');
-//     console.log(item);
-//     const datax = await fetch("/api/user/loadUser").then((res)=>{
-//       if(res.ok){
-//         return res.json();
-//       }
-//     }).catch(err=>{
-//       console.log(err);
-//     });
-//     console.log(datax);
-//   }
-//   const data = await fetch("http://localhost:3000/api/getImage", {
-//     mode: "cors",
-//   })
-//     .then((res) => {
-//       return res
-//         .json()
-//         .then((response) => {
-//           return response;
-//         })
-//         .catch((err) => {
-//           return err;
-//         });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-//   // console.log(data);
-//   let dataxx;
-//   if (typeof data == undefined) {
-//     dataxx = "";
-//   } else {
-//     dataxx = "data:image/png;base64," + data?.image?.data;
-//   }
-
-//   // dataxx = "data:image/png;base64," + data.image.data;
-//   // const dataxx = "data:image/png;base64," + data.image.data;
-//   return {
-//     props: { image: dataxx },
-//     revalidate:10
-//   };
-// }

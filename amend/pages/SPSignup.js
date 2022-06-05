@@ -59,11 +59,20 @@ export default function SignUp() {
   const [otp, setOtp] = useState("");
   const [otpx, setOtpx] = useState("");
   const [signIned, setSignIned] = React.useState(false);
+  const [open, setOpen] = React.useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  //Loading message
+  const [loading, setLoading] = React.useState(false);
+
   const router = useRouter();
   const handleSubmitx = async (event) => {
     event.preventDefault();
     if (otpx === otp) {
       console.log(userx);
+      setLoading(true);
       const createResponse = await fetch("/api/login/newEmp", {
         method: "POST",
         body: JSON.stringify(userx),
@@ -93,13 +102,13 @@ export default function SignUp() {
                   body: JSON.stringify(userx),
                 })
                   .then((res) => {
-                    setLoading(true);
                     res
                       .json()
                       .then((resx) => {
                         console.log(resx);
+                        setLoading(false);
                         localStorage.setItem("token", resx.token);
-                        router.replace("/uploadVerification");
+                        router.replace("/dashboard/eprofile");
                       })
                       .catch((err) => {
                         console.log(err);
@@ -129,7 +138,6 @@ export default function SignUp() {
               };
             });
           }
-          setLoading(false);
         })
         .catch((err) => {
           setOpen((prevState) => {
@@ -145,13 +153,7 @@ export default function SignUp() {
     }
   };
   //SnackBar for Status Message
-  const [open, setOpen] = React.useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
-  //Loading message
-  const [loading, setLoading] = React.useState(false);
+
   //Form Submit Handler
   const handleSubmit = (event) => {
     event.preventDefault();

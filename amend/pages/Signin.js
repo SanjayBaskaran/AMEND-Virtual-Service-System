@@ -154,7 +154,7 @@ export default function SignIn() {
       </ThemeProvider>
       <Dialog open={loading}>
         <LinearProgress />
-        <DialogTitle>{"Registering User"}</DialogTitle>
+        <DialogTitle>{"Logging in ..."}</DialogTitle>
         <DialogContent>
           <DialogContentText>Processing</DialogContentText>
         </DialogContent>

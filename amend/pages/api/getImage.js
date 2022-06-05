@@ -7,7 +7,7 @@ export default async function getImage(req, res) {
   const userCollection = db.collection("image-models");
   const data = JSON.parse(req.body);
   console.log(data);
-  const result = await userCollection.findOne({});
+  const result = await userCollection.findOne({name:data.name});
   // console.log(result);
     if (result) {
       res.status(201).json(result);

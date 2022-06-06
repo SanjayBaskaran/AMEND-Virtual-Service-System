@@ -123,7 +123,8 @@ export default function DashboardContent({ Component, pageProps }) {
     router.asPath == "/SPSignin"||
     router.asPath == "/Home" ||
     router.asPath == "/otp" ||
-    router.asPath == "/otpverify"
+    router.asPath == "/otpverify"||
+    router.asPath == "/AdminLogin"
   );
   console.log(displayDrawer);
   return (

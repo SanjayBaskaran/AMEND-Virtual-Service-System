@@ -8,42 +8,42 @@ import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id, date, name, servicetype, serviceprovider, amount) {
+  return { id, date, name, servicetype, serviceprovider, amount };
 }
 
 const rows = [
   createData(
     0,
-    '16 Mar, 2019',
+    '16 Mar, 2022',
     'Elvis Presley',
-    'Tupelo, MS',
-    'VISA ⠀•••• 3719',
+    'Electricals',
+    'Khani Radios',
     312.44,
   ),
   createData(
     1,
-    '16 Mar, 2019',
+    '19 Mar, 2022',
     'Paul McCartney',
-    'London, UK',
-    'VISA ⠀•••• 2574',
+    'Software',
+    'Kovai Computers',
     866.99,
   ),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
+  createData(2, '18 Mar, 2022', 'Tom Scholz', 'Electronics', 'Saravana Electronics', 100.81),
   createData(
     3,
-    '16 Mar, 2019',
+    '16 May, 2022',
     'Michael Jackson',
-    'Gary, IN',
-    'AMEX ⠀•••• 2000',
+    'Automobile',
+    'Pressana Honda',
     654.39,
   ),
   createData(
     4,
-    '15 Mar, 2019',
+    '22 May, 2022',
     'Bruce Springsteen',
-    'Long Branch, NJ',
-    'VISA ⠀•••• 5919',
+    'Plumbing',
+    'Finolex pipes',
     212.79,
   ),
 ];
@@ -61,9 +61,9 @@ export default function Orders() {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>Service Type</TableCell>
+            <TableCell>Service Provider</TableCell>
+            <TableCell align="right">Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,16 +71,13 @@ export default function Orders() {
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
+              <TableCell>{row.servicetype}</TableCell>
+              <TableCell>{row.serviceprovider}</TableCell>
               <TableCell align="right">{`$${row.amount}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
     </React.Fragment>
   );
 }

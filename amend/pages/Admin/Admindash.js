@@ -15,6 +15,8 @@ import jsonwebtoken from "jsonwebtoken";
 import Snackbar from "@mui/material/Snackbar";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useEffect, useRef, useState } from "react";
+import BasicTabs from "../dashboard/Booked";
+import Orders from "../dashboard/Orders";
 // import FileUpload from "react-mui-fileuploader"
 export default function Profile(props) {
   const [SnackbarDetails, setSnackbarDetails] = useState({
@@ -134,128 +136,8 @@ export default function Profile(props) {
 
   return (
     <>
-      <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Grid container spacing={0} direction="column" alignItems="center">
-            <Grid item>
-              <Avatar
-                alt="Remy Sharp"
-                src={userData.image}
-                sx={{ width: 150, height: 150 }}
-                onClick={handleClickOpen}
-              />
-            </Grid>
-
-            <Grid item>
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                  bgcolor: "background.paper",
-                }}
-              >
-                <ListItem>
-                  <ListItemAvatar>
-                    <AccountCircleIcon />
-                  </ListItemAvatar>
-                  <Typography sx={{ mb: 1.5 }} color="text.primary">
-                    {userData.firstname + " " + userData.lastname}
-                  </Typography>
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <EmailIcon />
-                  </ListItemAvatar>
-                  <Typography variant="body2">{userData.email}</Typography>
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <LocalPhoneIcon />
-                  </ListItemAvatar>
-                  <Typography variant="body2">{userData.phone}</Typography>
-                </ListItem>
-              </List>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Update Profile Photo</DialogTitle>
-        {!uploadLoading && (
-          <form method="POST" ref={formRef} onSubmit={handleFilesChange}>
-            <DialogContent>
-              <input type="file" name="image" />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Upload
-              </Button>
-            </DialogActions>
-          </form>
-        )}
-        {uploadLoading && <LinearProgress />}
-      </Dialog>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={openS}
-        onClose={handleSnackbarClose}
-        message="I love snacks"
-        key={vertical + horizontal}
-      />
+    <BasicTabs/>
+    <Orders/>
     </>
   );
 }
-// export async function getStaticProps() {
-
-//   if (typeof window !== 'undefined') {
-//     // Perform localStorage action
-//     const item = window.localStorage.getItem('token');
-//     console.log(item);
-//     const datax = await fetch("/api/user/loadUser").then((res)=>{
-//       if(res.ok){
-//         return res.json();
-//       }
-//     }).catch(err=>{
-//       console.log(err);
-//     });
-//     console.log(datax);
-//   }
-//   const data = await fetch("http://localhost:3000/api/getImage", {
-//     mode: "cors",
-//   })
-//     .then((res) => {
-//       return res
-//         .json()
-//         .then((response) => {
-//           return response;
-//         })
-//         .catch((err) => {
-//           return err;
-//         });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-//   // console.log(data);
-//   let dataxx;
-//   if (typeof data == undefined) {
-//     dataxx = "";
-//   } else {
-//     dataxx = "data:image/png;base64," + data?.image?.data;
-//   }
-
-//   // dataxx = "data:image/png;base64," + data.image.data;
-//   // const dataxx = "data:image/png;base64," + data.image.data;
-//   return {
-//     props: { image: dataxx },
-//     revalidate:10
-//   };
-// }

@@ -44,7 +44,7 @@ export default function SignIn() {
                 .then((resx) => {
                   console.log(resx);
                   localStorage.setItem("token", resx.token);
-                  router.replace("/Admin/Aprofile");
+                  router.replace("/Admin/Admindash");
                 })
                 .catch((err) => {
                   console.log(err);

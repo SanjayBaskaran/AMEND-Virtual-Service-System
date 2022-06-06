@@ -39,6 +39,7 @@ export default function Profile(props) {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [userData, setUserdata] = useState({ verified: false });
   const formRef = useRef();
+  const formRefx = useRef();
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -135,13 +136,48 @@ export default function Profile(props) {
       });
   }, []);
 
-  const handleFileUploadError = (error) => {
-    // Do something...
+  const handleFilesChangePDF = (event) => {
+    event.preventDefault();
+    const formData = new FormData(formRefx.current);
+    formData.append("name", userData.email + "PDF");
+    console.log;
+    setUploadLoading(true);
+    fetch("http://localhost:3001/pdf-upload", {
+      method: "POST",
+      body: formData,
+      mode: "cors",
+    })
+      .then((res) => {
+        if (res.ok) {
+          fetch("/api/user/emp/verificationStatus", {
+            method: "POST",
+            body: JSON.stringify({ email: userData.email }),
+          })
+            .then((res) => {
+              console.log(res + "TEST");
+              setUserdata((prevState) => {
+                return { ...prevState, verified: "pending" };
+              });
+            })
+            .catch((err) => {
+              console.log(err + "ERROR");
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
-      {!(userData.verified == "not yet") && (
+      {
+      userData.verified == "pending" && 
+      <>
+        Waiting for Admin response
+      </>
+      }
+      {!(userData.verified == "not yet" || userData.verified == "pending") && (
         <>
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
@@ -231,8 +267,8 @@ export default function Profile(props) {
             Upload any document for verification (aadhar card/driving license)
           </Typography>
 
-          <form method="POST" ref={formRef} onSubmit={handleFilesChange}>
-            <input type="file" name="image" />
+          <form method="POST" ref={formRefx} onSubmit={handleFilesChangePDF}>
+            <input type="file" name="pdf" />
             <Button
               type="submit"
               fullWidth

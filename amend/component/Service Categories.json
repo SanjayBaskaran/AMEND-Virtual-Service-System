@@ -1,0 +1,8 @@
+[{"id":"C1","service type":"Electronics"},
+ {"id":"C2","service type":"Electricals"},
+ {"id":"C3","service type":"Automobile"},
+ {"id":"C4","service type":"Software"},
+ {"id":"C5","service type":"House Keeping"},
+ {"id":"C6","service type":"Plumbing"}
+]
+

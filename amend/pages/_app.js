@@ -29,8 +29,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://localhost:3000/Home">
+        Amend.in
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -86,19 +86,30 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: 'dark',
+//   },
+// });
+
+
 export default function DashboardContent({ Component, pageProps }) {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const router = useRouter();
+  console.log(router);
   const displayDrawer = !(
     router.asPath == "/Signup" ||
     router.asPath == "/Signin" ||
     router.asPath == "/SPSignup" ||
     router.asPath == "/SPSignin"||
-    router.asPath == "/uploadVerification"
+    router.asPath == "/Home" ||
+    router.asPath == "/otp" ||
+    router.asPath == "/otpverify"
   );
+  console.log(displayDrawer);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>

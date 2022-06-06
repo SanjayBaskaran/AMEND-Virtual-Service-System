@@ -97,7 +97,7 @@ const mdTheme = createTheme();
 export default function DashboardContent({ Component, pageProps }) {
   function checkuser(){
     console.log("Check");
-    if(router.asPath.startsWith("/admin")){
+    if(router.asPath.startsWith("/Admin")){
       console.log("Admin");
       return "Admin";
     }

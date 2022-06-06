@@ -2,24 +2,26 @@ import * as React from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SellIcon from "@mui/icons-material/Sell";
 import PeopleIcon from "@mui/icons-material/People";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import BuildCircleIcon from "@mui/icons-material/BuildCircle";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
 
 export default function Nav(props) {
   if(props.nav == "User"){
     return (
     <React.Fragment>
-      <ListItemButton>
+      <VerifiedButton>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
-      </ListItemButton>
+      </VerifiedButton>
       <ListItemButton>
         <ListItemIcon>
           <SellIcon />
@@ -72,7 +74,7 @@ if(props.nav == "SP"){
       <ListItemIcon>
         <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Bookings" />
+      <ListItemText primary="Orders" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -88,33 +90,33 @@ if(props.nav == "Admin"){
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+        <HowToRegOutlinedIcon/>
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Verified SP" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <SellIcon />
+        <PendingActionsOutlinedIcon />
       </ListItemIcon>
-      <ListItemText primary="Offers" />
+      <ListItemText primary="Unverified SP" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Profile" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LibraryBooksIcon />
-      </ListItemIcon>
-      <ListItemText primary="Bookings" />
+      <ListItemText primary="Users" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <BuildCircleIcon />
       </ListItemIcon>
       <ListItemText primary="Settings" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <InfoOutlinedIcon/>
+      </ListItemIcon>
+      <ListItemText primary="About" />
     </ListItemButton>
   </React.Fragment>
 );

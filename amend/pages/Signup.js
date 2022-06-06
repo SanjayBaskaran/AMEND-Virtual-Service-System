@@ -82,7 +82,7 @@ export default function SignUp() {
                       .then((resx) => {
                         console.log(resx);
                         localStorage.setItem("token", resx.token);
-                        router.replace("/dashboard/profile");
+                        router.replace("/User/profile");
                       })
                       .catch((err) => {
                         console.log(err);

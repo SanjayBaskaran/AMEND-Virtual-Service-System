@@ -91,7 +91,7 @@ export default function SignUp() {
                         console.log(resx);
                         setLoading(false);
                         localStorage.setItem("token", resx.token);
-                        router.replace("/dashboard/eprofile");
+                        router.replace("/SP/eprofile");
                       })
                       .catch((err) => {
                         console.log(err);

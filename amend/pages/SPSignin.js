@@ -44,7 +44,7 @@ export default function SignIn() {
                 .then((resx) => {
                   console.log(resx);
                   localStorage.setItem("token", resx.token);
-                  router.replace("/dashboard/eprofile");
+                  router.replace("/SP/eprofile");
                 })
                 .catch((err) => {
                   console.log(err);

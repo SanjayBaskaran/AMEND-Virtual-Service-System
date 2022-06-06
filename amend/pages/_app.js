@@ -19,6 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "./listItems";
 import { useRouter } from "next/router";
+import Nav from "../component/nav";
 
 function Copyright(props) {
   return (
@@ -29,7 +30,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://localhost:3000/Home">
+      <Link color="inherit" href="./Home">
         Amend.in
       </Link>{" "}
       {new Date().getFullYear()}
@@ -94,6 +95,21 @@ const mdTheme = createTheme();
 
 
 export default function DashboardContent({ Component, pageProps }) {
+  function checkuser(){
+    console.log("Check");
+    if(router.asPath.startsWith("/admin")){
+      console.log("Admin");
+      return "Admin";
+    }
+    else if(router.asPath.startsWith("/SP")){
+      console.log("Service Provider");
+      return "SP";
+    }
+    else if(router.asPath.startsWith("/User")){
+      console.log("User");
+      return "User"
+    }
+  }
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -166,7 +182,7 @@ export default function DashboardContent({ Component, pageProps }) {
             </Toolbar>
             <Divider />
             <List component="nav">
-              {mainListItems}
+              <Nav nav={checkuser()}/>
               <Divider sx={{ my: 1 }} />
               {secondaryListItems}
             </List>

@@ -225,23 +225,23 @@ export default function Profile(props) {
           />
         </>
       )}
-      {(userData.verified == "not yet") && (
+      {userData.verified == "not yet" && (
         <Stack direction="column" alignItems="center" spacing={2}>
           <Typography variant="body2">
             Upload any document for verification (aadhar card/driving license)
           </Typography>
 
-          <label htmlFor="contained-button-file">
-            <Input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-            />
-            <Button variant="contained" component="span">
+          <form method="POST" ref={formRef} onSubmit={handleFilesChange}>
+            <input type="file" name="image" />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
               Upload
             </Button>
-          </label>
+          </form>
         </Stack>
       )}
     </>

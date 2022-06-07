@@ -5,7 +5,7 @@ export default async function AddService(req, res) {
   const db = client.db();
   const userCollection = db.collection("emp");
   const result = await userCollection.find().toArray();
-  res.status(201).json({"services":result});
+  res.status(201).json({"emps":result});
   client.close();
   
 }

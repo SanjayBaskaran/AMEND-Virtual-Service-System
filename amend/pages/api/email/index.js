@@ -6,9 +6,9 @@ export default async function SignUp(req,res){
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify(data)
           }).then((res)=>{
-            console.log(res);
+            // console.log(res);
           }).catch((err)=>{
-            console.log(err);
+            // console.log(err);
           });
           return res.status(200).json({"msg":response});
     }

@@ -102,34 +102,12 @@ export default function Profile(props) {
       body: JSON.stringify({ email: localStorage.getItem("token") }),
     })
       .then((res) => {
-        if (res.ok) {
-          res.json().then((resx) => {
-            console.log(resx.details);
-            fetch("/api/getImage", {
-              method: "POST",
-              body: JSON.stringify({ name: resx.details.email + "E" }),
-              mode: "cors",
-            })
-              .then((res) => {
-                return res
-                  .json()
-                  .then((response) => {
-                    setUserdata((prevState) => {
-                      return {
-                        ...resx.details,
-                        image: "data:image/png;base64," + response?.image?.data,
-                      };
-                    });
-                  })
-                  .catch((err) => {
-                    return err;
-                  });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          });
-        }
+        res.json().then(data=>{
+          const userData = data.details;
+          setUserdata((prevState)=>{
+            return {...userData,image:"data:image/png;base64," + userData?.image?.data}
+          })
+        })
       })
       .catch((err) => {
         console.log(err);

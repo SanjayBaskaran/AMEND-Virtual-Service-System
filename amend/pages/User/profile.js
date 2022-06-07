@@ -51,38 +51,29 @@ export default function Profile(props) {
       method: "POST",
       body: formData,
     })
-      .then((res) => {
-        if (res.ok) {
-          fetch("/api/getImage", {
-            method: "POST",
-            body: JSON.stringify({ name: userData.email + "U" }),
-            mode: "cors",
+      .then((result) => {
+        const datax = fetch("/api/user/loadUser", {
+          method: "POST",
+          body: JSON.stringify({ email: localStorage.getItem("token") }),
+        })
+          .then((res) => {
+            if (res.ok) {
+              res.json().then((resx) => {
+                const image = "data:image/png;base64," + resx.details.image.data;
+                console.log(image);
+                setUploadLoading(false);
+                setOpen(false);
+                setUserdata(
+                  (prevState=>{
+                    return {...resx.details,image:image}
+                  })
+                );
+              });
+            }
           })
-            .then((res) => {
-              return res
-                .json()
-                .then((response) => {
-                  setUploadLoading(false);
-                  handleSnackbarClick({
-                    vertical: "bottom",
-                    horizontal: "center",
-                  });
-                  setOpen(false);
-                  setUserdata((prevState) => {
-                    return {
-                      ...prevState,
-                      image: "data:image/png;base64," + response?.image?.data,
-                    };
-                  });
-                })
-                .catch((err) => {
-                  return err;
-                });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -96,30 +87,13 @@ export default function Profile(props) {
       .then((res) => {
         if (res.ok) {
           res.json().then((resx) => {
-            console.log(resx.details);
-            fetch("/api/getImage", {
-              method: "POST",
-              body: JSON.stringify({ name: resx.details.email + "U" }),
-              mode: "cors",
-            })
-              .then((res) => {
-                return res
-                  .json()
-                  .then((response) => {
-                    setUserdata((prevState) => {
-                      return {
-                        ...resx.details,
-                        image: "data:image/png;base64," + response?.image?.data,
-                      };
-                    });
-                  })
-                  .catch((err) => {
-                    return err;
-                  });
+            const image = "data:image/png;base64," + resx.details.image.data;
+            console.log(image);
+            setUserdata(
+              (prevState=>{
+                return {...resx.details,image:image}
               })
-              .catch((err) => {
-                console.log(err);
-              });
+            );
           });
         }
       })

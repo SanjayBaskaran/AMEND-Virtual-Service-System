@@ -8,7 +8,7 @@ export default async function SignUp(req, res) {
 
     const userCollection =await db.collection("user");
     const result = await userCollection.findOne({ email: data.email });
-    console.log("testx",result);
+    // console.log("testx",result);
 
       if (result) {
         res.status(401).json({ message: "Email id already exists",exists:true });

@@ -7,11 +7,11 @@ export default async function SignUp(req, res) {
     
     const db = await client.db();
     var email = jsonwebtaken.verify(data.email, "SECRET_CODE_USER_LOGIN").email;
-    console.log(email);
+    // console.log(email);
     const userCollection =await db.collection("emp");
 
     const result = await userCollection.findOne({ email: email });
-    console.log(result);
+    // console.log(result);
       if (result) {
         res.status(200).json({ details: result });
       } else

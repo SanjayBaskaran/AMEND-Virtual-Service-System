@@ -11,17 +11,16 @@ import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
-
 export default function Nav(props) {
   if(props.nav == "User"){
     return (
     <React.Fragment>
-      <VerifiedButton>
+      <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
-      </VerifiedButton>
+      </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
           <SellIcon />

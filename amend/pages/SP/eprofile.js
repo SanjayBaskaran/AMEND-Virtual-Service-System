@@ -82,37 +82,26 @@ export default function Profile(props) {
       body: formData,
     })
       .then((res) => {
-        if (res.ok) {
-          fetch("/api/getImage", {
-            method: "POST",
-            body: JSON.stringify({ name: userData.email + "E" }),
-            mode: "cors",
-          })
-            .then((res) => {
-              return res
-                .json()
-                .then((response) => {
-                  setUploadLoading(false);
-                  handleSnackbarClick({
-                    vertical: "bottom",
-                    horizontal: "center",
-                  });
-                  setOpen(false);
-                  setUserdata((prevState) => {
-                    return {
-                      ...prevState,
-                      image: "data:image/png;base64," + response?.image?.data,
-                    };
-                  });
-                })
-                .catch((err) => {
-                  return err;
-                });
-            })
-            .catch((err) => {
-              console.log(err);
+        const datax = fetch("/api/user/loadUserEmp", {
+          method: "POST",
+          body: JSON.stringify({ email: localStorage.getItem("token") }),
+        })
+          .then((res) => {
+            res.json().then((data) => {
+              const userData = data.details;
+              setUserdata((prevState) => {
+                setUploadLoading(false);
+                setOpen(false);
+                return {
+                  ...userData,
+                  image: "data:image/png;base64," + userData?.image?.data,
+                };
+              });
             });
-        }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -142,7 +131,7 @@ export default function Profile(props) {
   const handleFilesChangePDF = (event) => {
     event.preventDefault();
     const formData = new FormData(formRefx.current);
-    
+
     formData.append("name", userData.email + "PDF");
     console.log(formData.get("serviceName"));
     setUploadLoading(true);
@@ -267,14 +256,20 @@ export default function Profile(props) {
           </Typography>
 
           <form method="POST" ref={formRefx} onSubmit={handleFilesChangePDF}>
-            <select name="serviceName" style= {{"width":"100px"}}>
-            {serviceDetails.map((item) => {
-            return (
-              <option value={item.serviceName} name={item.serviceName} key={item._id}>{item.serviceName}</option>
-            );
-          })}
+            <select name="serviceName" style={{ width: "100px" }}>
+              {serviceDetails.map((item) => {
+                return (
+                  <option
+                    value={item.serviceName}
+                    name={item.serviceName}
+                    key={item._id}
+                  >
+                    {item.serviceName}
+                  </option>
+                );
+              })}
             </select>
-            <br/>
+            <br />
             <input type="file" name="pdf" />
             <Button
               type="submit"

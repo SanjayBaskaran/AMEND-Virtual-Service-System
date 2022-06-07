@@ -4,6 +4,7 @@ import {
   List,
   ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemText,
 } from "@mui/material";
 
@@ -41,21 +42,24 @@ export default function Service() {
         >
           {emps.map((item) => {
             return (
-              <ListItem key={item._id}>
-                <ListItemAvatar>
-                  <Avatar
-                    alt={item.firstname}
-                    src={"data:image/png;base64," + item?.image?.data}
+              <div key={item._id}>
+                <ListItemButton >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={item.firstname}
+                      src={"data:image/png;base64," + item?.image?.data}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={item.email}
+                    secondary={item.firstname + " " + item.lastname}
                   />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={item.email}
-                  secondary={item.firstname + " " + item.lastname}
-                />
-              </ListItem>
+                </ListItemButton>
+
+                <Divider />
+              </div>
             );
           })}
-          <Divider />
         </List>
       )}
     </>

@@ -5,22 +5,18 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
-// import { Viewer } from "@react-pdf-viewer/core";
-// import "@react-pdf-viewer/core/lib/styles/index.css";
-
+import Link from 'next/link';
 const base64toBlob = (data) => {
-  // Cut the prefix `data:application/pdf;base64` from the raw base 64
-  const base64WithoutPrefix = data;
+  const raw = window.atob(data);
+  const rawLength = raw.length;
+  const blobArray = new Uint8Array(new ArrayBuffer(rawLength));
 
-  const bytes = atob(base64WithoutPrefix);
-  let length = bytes.length;
-  let out = new Uint8Array(length);
-
-  while (length--) {
-    out[length] = bytes.charCodeAt(length);
+  for (let i = 0; i < rawLength; i++) {
+    blobArray[i] = raw.charCodeAt(i);
   }
 
-  return new Blob([out], { type: "application/pdf" });
+  const blob = new Blob([blobArray], { type: "application/pdf" });
+  return blob;
 };
 export default function SP() {
   const [expanded, setExpanded] = React.useState(false);
@@ -73,21 +69,20 @@ export default function SP() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Button variant="contained">View PDF</Button>
                 <div
                   style={{
                     border: "1px solid rgba(0, 0, 0, 0.3)",
-                    width: "100%",
+                    width: "70vw",
                   }}
                 >
-                  <iframe
-                    style={{
-                      border: "1px solid rgba(0, 0, 0, 0.3)",
-                      width: "80vw",
-                      height:"70vh"
-                    }}
-                    src={"data:application/pdf;base64," + item.pdf.data}
-                  />
+                  
+                  Service Name : {item.serviceName}
+                  <br/>
+                    <a href={window.URL.createObjectURL(base64toBlob(item.pdf.data))}>
+                    View PDF
+                    </a>
+                  
+                    
                 </div>
               </AccordionDetails>
             </Accordion>

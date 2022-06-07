@@ -87,8 +87,7 @@ export default function Profile(props) {
       .then((res) => {
         if (res.ok) {
           res.json().then((resx) => {
-            const image = "data:image/png;base64," + resx.details.image.data;
-            console.log(image);
+            const image = "data:image/png;base64," + resx.details?.image?.data;
             setUserdata(
               (prevState=>{
                 return {...resx.details,image:image}
@@ -113,7 +112,7 @@ export default function Profile(props) {
           <Grid container spacing={0} direction="column" alignItems="center">
             <Grid item>
               <Avatar
-                alt="Remy Sharp"
+                alt={userData.firstname}
                 src={userData.image}
                 sx={{ width: 150, height: 150 }}
                 onClick={handleClickOpen}

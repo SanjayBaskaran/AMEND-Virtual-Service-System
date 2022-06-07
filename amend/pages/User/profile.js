@@ -60,7 +60,7 @@ export default function Profile(props) {
             if (res.ok) {
               res.json().then((resx) => {
                 const image = "data:image/png;base64," + resx.details.image.data;
-                console.log(image);
+                // console.log(image);
                 setUploadLoading(false);
                 setOpen(false);
                 setUserdata(

@@ -75,7 +75,7 @@ export default function SignUp() {
               method: "POST",
               body: JSON.stringify({
                 semail: userx.email,
-                msg: "Thanks for registering into AMEND ",
+                msg: "Welcome to Amend. Thanks for registering and we look forward to maintain a long lasting relationship with you. Please provide the neccessary documents for verification. ",
                 subject: "Successful Signup",
               }),
             })

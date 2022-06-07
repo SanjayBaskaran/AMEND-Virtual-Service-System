@@ -10,6 +10,10 @@ import BuildCircleIcon from "@mui/icons-material/BuildCircle";
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import LogoutIcon from '@mui/icons-material/Logout';
+import BookIcon from '@mui/icons-material/Book';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function Nav(props) {
   if(props.nav == "User"){
@@ -29,7 +33,7 @@ export default function Nav(props) {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <PeopleIcon />
+          <PersonIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton>
@@ -45,7 +49,15 @@ export default function Nav(props) {
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItemButton>
     </React.Fragment>
+    
+    
   );
 }
 if(props.nav == "SP"){
@@ -53,27 +65,27 @@ if(props.nav == "SP"){
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <SellIcon />
-      </ListItemIcon>
-      <ListItemText primary="Offers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
+        <PersonIcon />
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
+        <BookIcon />
+      </ListItemIcon>
+      <ListItemText primary="Bookings" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+      <AddBusinessIcon/>
+      </ListItemIcon>
+      <ListItemText primary="New Requests" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
         <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="History" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -81,6 +93,12 @@ if(props.nav == "SP"){
       </ListItemIcon>
       <ListItemText primary="Settings" />
     </ListItemButton>
+    <ListItemButton>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItemButton>
   </React.Fragment>
 );
 }
@@ -117,6 +135,12 @@ if(props.nav == "Admin"){
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItemButton>
+    <ListItemButton>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItemButton>
   </React.Fragment>
 );
 }

@@ -8,7 +8,7 @@ mail = Mail(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'group12.mca.psgtech@gmail.com'
-app.config['MAIL_PASSWORD'] = 'group12ead@psgtech2022'
+app.config['MAIL_PASSWORD'] = 'fntpevzkzqjogsxk'
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 

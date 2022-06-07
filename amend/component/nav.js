@@ -14,6 +14,7 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 export default function Nav(props) {
   if(props.nav == "User"){
@@ -39,7 +40,7 @@ export default function Nav(props) {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <LibraryBooksIcon />
+          <ViewListIcon />
         </ListItemIcon>
         <ListItemText primary="Bookings" />
       </ListItemButton>

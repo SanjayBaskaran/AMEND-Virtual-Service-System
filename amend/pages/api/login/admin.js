@@ -4,13 +4,13 @@ export default async function SignUp(req, res) {
   if (req.method === "POST") {
     const data = JSON.parse(req.body);
     // console.log(data);
-    const client = await MongoClient.connect("mongodb://localhost:27017/admin");
+    const client = await MongoClient.connect("mongodb://localhost:27017/amend");
     const db = client.db();
 
     const userCollection = db.collection("Admin");
-
-    const result = await userCollection.findOne({ username: data.username});
-    // console.log(result);
+    console.log(data.email);
+    const result = await userCollection.findOne({ username: data.email});
+    console.log(result);
 
     bcrypt.compare(data.password, result.password).then((resultx) => {
       if (resultx) {

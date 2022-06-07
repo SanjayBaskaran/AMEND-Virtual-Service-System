@@ -13,12 +13,25 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Dialog, DialogContent, DialogContentText, DialogTitle, LinearProgress } from "@mui/material";
+import {
+  Alert,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  LinearProgress,
+  Snackbar,
+} from "@mui/material";
 
 const theme = createTheme();
 
 export default function SignIn() {
   const router = useRouter();
+  const [snackbarStatus, setSnackbarStatus] = React.useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
   const [loading, setLoading] = React.useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,13 +45,14 @@ export default function SignIn() {
       body: JSON.stringify(loginData),
     })
       .then((res) => {
-        if (res) {
+
+        setLoading(true);
+        if (res.status == 201) {
           fetch("/api/token/jwtCreation", {
             method: "POST",
             body: JSON.stringify(loginData),
           })
             .then((res) => {
-              setLoading(true);
               res
                 .json()
                 .then((resx) => {
@@ -53,6 +67,15 @@ export default function SignIn() {
             .catch((err) => {
               console.log(err);
             });
+        } else {
+          setLoading(false);
+          setSnackbarStatus((prevState) => {
+            return {
+              open: true,
+              message: "Invalid Login",
+              severity: "error",
+            };
+          });
         }
       })
       .catch((err) => {
@@ -140,6 +163,11 @@ export default function SignIn() {
           <DialogContentText>Processing</DialogContentText>
         </DialogContent>
       </Dialog>
+      <Snackbar open={snackbarStatus.open} autoHideDuration={6000}>
+        <Alert severity={snackbarStatus.severity} sx={{ width: "100%" }}>
+          {snackbarStatus.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

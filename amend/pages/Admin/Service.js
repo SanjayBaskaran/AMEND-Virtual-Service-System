@@ -1,24 +1,100 @@
-import { Alert, Avatar, Button, Checkbox, CssBaseline, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, Grid, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, Snackbar, TextField, Typography } from "@mui/material";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import {
+  Alert,
+  Avatar,
+  Button,
+  Checkbox,
+  CssBaseline,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControlLabel,
+  Grid,
+  LinearProgress,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box, Container, createTheme } from "@mui/system";
 import { ThemeProvider } from "styled-components";
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import Link from "next/link";
 import React from "react";
 import { InboxIcon } from "@mui/icons-material";
 
 export default function Service() {
-    const theme = createTheme();
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
-    const [snackbarStatus, setSnackbarStatus] = React.useState({
-        open: false,
-        severity: "success",
-        message: "",
+  const theme = createTheme();
+  const formRef = React.useRef();
+  const [snackbarStatus, setSnackbarStatus] = React.useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
+  const [serviceDetails, setServiceDetails] = React.useState([]);
+  React.useEffect(() => {
+    fetch("/api/services/getService", {
+      method: "GET",
+    })
+      .then((res) => {
+        res
+          .json()
+          .then((services) => {
+            console.log(services);
+            setServiceDetails((prevState) => {
+              return services.services;
+            });
+          })
+          .catch((err) => {
+            return;
+          });
+      })
+      .catch((err) => {
+        return;
       });
-    const handleSubmit = (event)=>{
-        event.preventDefault();
-    }
-    const [loading, setLoading] = React.useState(false);
-    return (
+  }, []);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(formRef.current);
+    const data = {
+      serviceName: formData.get("service"),
+    };
+    fetch("/api/services/addService", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        fetch("/api/services/getService", {
+          method: "GET",
+        })
+          .then((res) => {
+            res
+              .json()
+              .then((services) => {
+                console.log(services);
+                setServiceDetails((prevState) => {
+                  return services.services;
+                });
+              })
+              .catch((err) => {
+                return;
+              });
+          })
+          .catch((err) => {
+            return;
+          });
+      })
+      .catch((err) => {
+        return;
+      });
+  };
+  const [loading, setLoading] = React.useState(false);
+  return (
     <>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -39,6 +115,7 @@ export default function Service() {
             </Typography>
             <Box
               component="form"
+              ref={formRef}
               onSubmit={handleSubmit}
               noValidate
               sx={{ mt: 1 }}
@@ -53,8 +130,7 @@ export default function Service() {
                 autoComplete="service"
                 autoFocus
               />
-              
-              
+
               <Button
                 type="submit"
                 fullWidth
@@ -63,7 +139,6 @@ export default function Service() {
               >
                 Add
               </Button>
-              
             </Box>
           </Box>
         </Container>
@@ -80,43 +155,23 @@ export default function Service() {
           {snackbarStatus.message}
         </Alert>
       </Snackbar>
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItemButton
-          selected={selectedIndex === 0}
-          onClick={(event) => handleListItemClick(event, 0)}
-        >
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 1}
-          onClick={(event) => handleListItemClick(event, 1)}
-        >
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItemButton>
-      </List>
-      <Divider />
-      <List component="nav" aria-label="secondary mailbox folder">
-        <ListItemButton
-          selected={selectedIndex === 2}
-          onClick={(event) => handleListItemClick(event, 2)}
-        >
-          <ListItemText primary="Trash" />
-        </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 3}
-          onClick={(event) => handleListItemClick(event, 3)}
-        >
-          <ListItemText primary="Spam" />
-        </ListItemButton>
-      </List>
-    </Box>
+      <Box
+        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+      ></Box>
+      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <List component="nav">
+          {serviceDetails.map((item) => {
+            return (
+              <React.Fragment key={serviceDetails.indexOf(item)}>
+                <ListItemButton>
+                  <ListItemText primary={item.serviceName} />
+                </ListItemButton>
+                <Divider />
+              </React.Fragment>
+            );
+          })}
+        </List>
+      </Box>
     </>
   );
 }

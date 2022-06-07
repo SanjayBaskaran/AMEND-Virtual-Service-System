@@ -4,7 +4,7 @@ export default async function SignUp(req, res) {
   if (req.method === "POST") {
     console.log("In ");
     const data = JSON.parse(req.body);
-    console.log(data);
+    // console.log(data);
     data["verified"] = "not yet";
     const client = await MongoClient.connect("mongodb://localhost:27017/amend");
     console.log("Connected");

@@ -96,17 +96,17 @@ const mdTheme = createTheme();
 
 export default function DashboardContent({ Component, pageProps }) {
   function checkuser(){
-    console.log("Check");
+    // console.log("Check");
     if(router.asPath.startsWith("/Admin")){
-      console.log("Admin");
+      // console.log("Admin");
       return "Admin";
     }
     else if(router.asPath.startsWith("/SP")){
-      console.log("Service Provider");
+      // console.log("Service Provider");
       return "SP";
     }
     else if(router.asPath.startsWith("/User")){
-      console.log("User");
+      // console.log("User");
       return "User"
     }
   }
@@ -115,7 +115,7 @@ export default function DashboardContent({ Component, pageProps }) {
     setOpen(!open);
   };
   const router = useRouter();
-  console.log(router);
+  // console.log(router);
   const displayDrawer = !(
     router.asPath == "/Signup" ||
     router.asPath == "/Signin" ||

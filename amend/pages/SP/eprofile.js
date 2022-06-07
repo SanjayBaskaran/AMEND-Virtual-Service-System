@@ -49,6 +49,28 @@ export default function Profile(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const [serviceDetails, setServiceDetails] = React.useState([]);
+  React.useEffect(() => {
+    fetch("/api/services/getService", {
+      method: "GET",
+    })
+      .then((res) => {
+        res
+          .json()
+          .then((services) => {
+            console.log(services);
+            setServiceDetails((prevState) => {
+              return services.services;
+            });
+          })
+          .catch((err) => {
+            return;
+          });
+      })
+      .catch((err) => {
+        return;
+      });
+  }, []);
 
   const handleFilesChange = (event) => {
     event.preventDefault();
@@ -102,12 +124,15 @@ export default function Profile(props) {
       body: JSON.stringify({ email: localStorage.getItem("token") }),
     })
       .then((res) => {
-        res.json().then(data=>{
+        res.json().then((data) => {
           const userData = data.details;
-          setUserdata((prevState)=>{
-            return {...userData,image:"data:image/png;base64," + userData?.image?.data}
-          })
-        })
+          setUserdata((prevState) => {
+            return {
+              ...userData,
+              image: "data:image/png;base64," + userData?.image?.data,
+            };
+          });
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -117,8 +142,9 @@ export default function Profile(props) {
   const handleFilesChangePDF = (event) => {
     event.preventDefault();
     const formData = new FormData(formRefx.current);
+    
     formData.append("name", userData.email + "PDF");
-    console.log;
+    console.log(formData.get("serviceName"));
     setUploadLoading(true);
     fetch("http://localhost:3001/pdf-upload", {
       method: "POST",
@@ -149,12 +175,7 @@ export default function Profile(props) {
 
   return (
     <>
-      {
-      userData.verified == "pending" && 
-      <>
-        Waiting for Admin response
-      </>
-      }
+      {userData.verified == "pending" && <>Waiting for Admin response</>}
       {!(userData.verified == "not yet" || userData.verified == "pending") && (
         <>
           <Card sx={{ minWidth: 275 }}>
@@ -246,6 +267,14 @@ export default function Profile(props) {
           </Typography>
 
           <form method="POST" ref={formRefx} onSubmit={handleFilesChangePDF}>
+            <select name="serviceName" style= {{"width":"100px"}}>
+            {serviceDetails.map((item) => {
+            return (
+              <option value={item.serviceName} name={item.serviceName} key={item._id}>{item.serviceName}</option>
+            );
+          })}
+            </select>
+            <br/>
             <input type="file" name="pdf" />
             <Button
               type="submit"

@@ -11,7 +11,7 @@ import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from '@mui/icons-material/Signout';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -54,7 +54,7 @@ export default function Nav(props) {
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary="Signout" />
       </ListItemButton>
     </React.Fragment>
     
@@ -98,7 +98,7 @@ if(props.nav == "SP"){
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary="Signout" />
       </ListItemButton>
   </React.Fragment>
 );
@@ -140,7 +140,7 @@ if(props.nav == "Admin"){
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary="Signout" />
       </ListItemButton>
   </React.Fragment>
 );

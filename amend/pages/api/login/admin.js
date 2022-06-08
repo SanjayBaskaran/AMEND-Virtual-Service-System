@@ -7,7 +7,7 @@ export default async function SignUp(req, res) {
     const client = await MongoClient.connect("mongodb://localhost:27017/amend");
     const db = client.db();
 
-    const userCollection = db.collection("admin");
+    const userCollection = db.collection("Admin");
     console.log(data.email);
     const result = await userCollection.findOne({ username: data.email});
     console.log(result);

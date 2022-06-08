@@ -20,6 +20,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "./listItems";
 import { useRouter } from "next/router";
 import Nav from "../component/nav";
+import { green, purple } from '@mui/material/colors';
 
 function Copyright(props) {
   return (
@@ -85,14 +86,17 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme();
-
-// const darkTheme = createTheme({
+const mdTheme = createTheme(//{
 //   palette: {
-//     mode: 'dark',
+//     primary: {
+//       main: purple[500],
+//     },
+//     secondary: {
+//       main: green[500],
+//     },
 //   },
-// });
-
+// }
+);
 
 export default function DashboardContent({ Component, pageProps }) {
   function checkuser(){

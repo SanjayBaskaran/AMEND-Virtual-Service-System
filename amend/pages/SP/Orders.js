@@ -6,7 +6,7 @@ export default function Booked(props) {
   const [userData, setUserdata] = useState({});
   const [userBooked, setUserBooked] = useState([]);
   useEffect(() => {
-    const datax = fetch("/api/user/loadUser", {
+    const datax = fetch("/api/user/loadUserEmp", {
       method: "POST",
       body: JSON.stringify({ email: localStorage.getItem("token") }),
     })
@@ -15,7 +15,7 @@ export default function Booked(props) {
           res.json().then((resx) => {
             const image = "data:image/png;base64," + resx.details?.image?.data;
 
-            fetch("/api/services/getServiceUser", {
+            fetch("/api/services/getServiceEmp", {
               method: "POST",
               body: JSON.stringify({ email: resx.details.email }),
             })

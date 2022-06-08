@@ -122,6 +122,7 @@ app.post("/pdf-upload", singleUploadPDFCtrl, (req, res) => {
     const update = {
       $set: {
         serviceName:req.body.serviceName,
+        verified:"pending",
         pdf: { data: req.file.buffer, contentType: req.file.mimetype },
       },
     };

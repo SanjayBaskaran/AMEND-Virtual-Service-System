@@ -15,31 +15,35 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import ViewListIcon from '@mui/icons-material/ViewList';
-// import Signout from "./Signout";
+import { useRouter } from 'next/router';
 
 export default function Nav(props) {
+  const router=useRouter(); 
   if(props.nav == "User"){
     return (
     <React.Fragment>
-      <ListItemButton>
+      <ListItemButton onClick={()=>{
+          console.log("redirecting to profile");
+          router.replace("/User/dashboard");
+          }}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <SellIcon />
-        </ListItemIcon>
-        <ListItemText primary="Offers" />
-      </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={()=>{
+          console.log("redirecting to profile");
+          router.replace("/User/profile");
+          }}>
         <ListItemIcon>
           <PersonIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={()=>{
+          console.log("redirecting to Bookings");
+          router.replace("/User/Booked");
+          }}>
         <ListItemIcon>
           <ViewListIcon />
         </ListItemIcon>
@@ -51,11 +55,14 @@ export default function Nav(props) {
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={()=>{
+          console.log("success");
+          router.replace("/Signin");
+          }}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Sign out" onClick={()=>{location.href="/Home"}} />
+        <ListItemText primary="Sign out"  />
       </ListItemButton>
     </React.Fragment>
     
@@ -65,13 +72,19 @@ export default function Nav(props) {
 if(props.nav == "SP"){
   return (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("redirecting to profile");
+          router.replace("/SP/eprofile");
+          }}>
       <ListItemIcon>
         <PersonIcon />
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("redirecting to orders");
+          router.replace("/SP/Orders");
+          }}>
       <ListItemIcon>
         <BookIcon />
       </ListItemIcon>
@@ -95,7 +108,10 @@ if(props.nav == "SP"){
       </ListItemIcon>
       <ListItemText primary="Settings" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("success");
+          router.replace("/SPSignin");
+          }}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
@@ -107,17 +123,14 @@ if(props.nav == "SP"){
 if(props.nav == "Admin"){
   return (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("redirecting to profile");
+          router.replace("/Admin/SP");
+          }}>
       <ListItemIcon>
         <HowToRegOutlinedIcon/>
       </ListItemIcon>
-      <ListItemText primary="Verified SP" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PendingActionsOutlinedIcon />
-      </ListItemIcon>
-      <ListItemText primary="Unverified SP" />
+      <ListItemText primary="Service Providers" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -137,7 +150,10 @@ if(props.nav == "Admin"){
       </ListItemIcon>
       <ListItemText primary="About" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("success");
+          router.replace("/AdminLogin");
+          }}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>

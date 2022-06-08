@@ -11,7 +11,7 @@ import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import LogoutIcon from '@mui/icons-material/Signout';
+import LogoutIcon from '@mui/icons-material/Logout';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import ViewListIcon from '@mui/icons-material/ViewList';

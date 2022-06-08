@@ -160,11 +160,6 @@ export default function DashboardContent({ Component, pageProps }) {
             >
               AMEND
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         {displayDrawer && (

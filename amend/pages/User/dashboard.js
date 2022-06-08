@@ -1,5 +1,6 @@
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+
 import {
   Alert,
   Avatar,
@@ -23,7 +24,9 @@ import {
 } from "@mui/material";
 import { Box, createTheme } from "@mui/system";
 import React from "react";
+import { useRouter } from "next/router";
 export default function Service() {
+    const router = useRouter();
   const [serviceDetails, setServiceDetails] = React.useState([]);
   React.useEffect(() => {
     fetch("/api/services/getService", {
@@ -57,8 +60,8 @@ export default function Service() {
         <List component="nav">
           {serviceDetails.map((item) => {
             return (
-              <React.Fragment key={serviceDetails.indexOf(item)}>
-                <ListItemButton>
+              <React.Fragment key={item._id}>
+                <ListItemButton onClick={()=>{router.replace("/User/service/"+item.serviceName)}}>
                   <ListItemText primary={item.serviceName} />
                 </ListItemButton>
                 <Divider />

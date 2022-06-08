@@ -55,7 +55,7 @@ export default function Nav(props) {
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Signout" onClick={()=>{location.href="/Home"}} />
+        <ListItemText primary="Sign out" onClick={()=>{location.href="/Home"}} />
       </ListItemButton>
     </React.Fragment>
     
@@ -99,7 +99,7 @@ if(props.nav == "SP"){
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Signout" />
+        <ListItemText primary="Sign out" />
       </ListItemButton>
   </React.Fragment>
 );
@@ -141,7 +141,7 @@ if(props.nav == "Admin"){
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText primary="Signout" />
+        <ListItemText primary="Log out" />
       </ListItemButton>
   </React.Fragment>
 );

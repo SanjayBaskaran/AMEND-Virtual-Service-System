@@ -1,6 +1,6 @@
-import { Box, List, ListItem, ListItemText } from "@material-ui/core";
+import { Box, Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import { ListItemButton } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Booked(props) {
   const [userData, setUserdata] = useState({});
@@ -24,6 +24,7 @@ export default function Booked(props) {
                   .json()
                   .then((bookedDetails) => {
                     console.log(bookedDetails);
+                    setUserBooked(bookedDetails);
                   })
                   .catch((err) => {
                     return;
@@ -47,11 +48,11 @@ export default function Booked(props) {
     <>
       <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         <List component="nav">
-          {serviceDetails.map((item) => {
+          {userBooked.map((item) => {
             return (
               <React.Fragment key={item._id}>
                 <ListItemButton>
-                  <ListItemText primary={item.request} secondary={}/>
+                  <ListItemText primary={item.serviceProvider} secondary={item.confirm + " requested on " + item.date}/>
                 </ListItemButton>
                 <Divider />
               </React.Fragment>

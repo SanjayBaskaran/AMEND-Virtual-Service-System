@@ -128,7 +128,8 @@ export default function DashboardContent({ Component, pageProps }) {
     router.asPath == "/Home" ||
     router.asPath == "/otp" ||
     router.asPath == "/otpverify"||
-    router.asPath == "/AdminLogin"
+    router.asPath == "/AdminLogin"||
+    router.asPath == "/"
   );
   console.log(displayDrawer);
   return (

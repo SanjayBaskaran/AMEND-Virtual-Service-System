@@ -18,8 +18,17 @@ import bcrypt from "bcryptjs";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-
-const theme = createTheme();
+import { green, purple } from '@mui/material/colors';
+const theme = createTheme({
+  overrides:
+  {
+  MuiButton: {
+    raisedPrimary: {
+      color: purple[500],
+    },
+  },
+}
+});
 function generateOTP() {
   // Declare a digits variable
   // which stores all digits

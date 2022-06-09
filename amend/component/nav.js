@@ -124,7 +124,7 @@ if(props.nav == "Admin"){
   return (
   <React.Fragment>
     <ListItemButton onClick={()=>{
-          console.log("redirecting to profile");
+          console.log("redirecting to Service Providers");
           router.replace("/Admin/SP");
           }}>
       <ListItemIcon>
@@ -132,7 +132,10 @@ if(props.nav == "Admin"){
       </ListItemIcon>
       <ListItemText primary="Service Providers" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{
+          console.log("redirecting to users");
+          router.replace("/Admin/Users");
+          }}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

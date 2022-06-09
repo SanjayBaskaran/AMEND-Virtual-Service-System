@@ -8,8 +8,8 @@ export default async function SignUp(req, res) {
     const db = client.db();
 
     const userCollection = db.collection("Admin");
-    console.log(data.email);
-    const result = await userCollection.findOne({ username: data.email});
+    console.log(data.username);
+    const result = await userCollection.findOne({ username: data.username});
     console.log(result);
 
     bcrypt.compare(data.password, result.password).then((resultx) => {

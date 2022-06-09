@@ -19,16 +19,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { green, purple } from '@mui/material/colors';
-const theme = createTheme({
-  overrides:
-  {
-  MuiButton: {
-    raisedPrimary: {
-      color: purple[500],
-    },
-  },
-}
-});
+const theme = createTheme();
 function generateOTP() {
   // Declare a digits variable
   // which stores all digits
@@ -75,7 +66,7 @@ export default function SignUp() {
               method: "POST",
               body: JSON.stringify({
                 semail: userx.email,
-                msg: "Thanks for registering into AMEND ",
+                msg: "Thanks for registering into AMEND. ",
                 subject: "Successful Signup",
               }),
             })

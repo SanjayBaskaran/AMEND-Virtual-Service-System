@@ -86,23 +86,7 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme({
-  palette: {
-    primary: {
-      main: purple[500],
-      
-    },
-  },
-    overrides:
-    {
-    MuiButton: {
-      raisedPrimary: {
-        color: purple[500],
-      },
-    },
-  }
-  }
-);
+const mdTheme = createTheme();
 
 export default function DashboardContent({ Component, pageProps }) {
   function checkuser(){

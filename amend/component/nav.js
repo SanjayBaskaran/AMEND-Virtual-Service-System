@@ -57,7 +57,7 @@ export default function Nav(props) {
       </ListItemButton>
       <ListItemButton onClick={()=>{
           console.log("success");
-          router.replace("/Signin");
+          router.replace("/");
           }}>
         <ListItemIcon>
           <LogoutIcon />
@@ -110,7 +110,7 @@ if(props.nav == "SP"){
     </ListItemButton>
     <ListItemButton onClick={()=>{
           console.log("success");
-          router.replace("/SPSignin");
+          router.replace("/");
           }}>
         <ListItemIcon>
           <LogoutIcon />
@@ -155,7 +155,7 @@ if(props.nav == "Admin"){
     </ListItemButton>
     <ListItemButton onClick={()=>{
           console.log("success");
-          router.replace("/AdminLogin");
+          router.replace("/");
           }}>
         <ListItemIcon>
           <LogoutIcon />

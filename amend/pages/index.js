@@ -1,102 +1,116 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import StarIcon from '@mui/icons-material/StarBorder';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import GlobalStyles from '@mui/material/GlobalStyles';
-import Container from '@mui/material/Container';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import StarIcon from "@mui/icons-material/StarBorder";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import Container from "@mui/material/Container";
+import { useRouter } from "next/router";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const tiers = [
   {
-    title: 'Free',
-    price: '0',
+    title: "Be our Customer",
+    price: "0",
     description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support',
+      "Free of Cost",
+      "24/7 Service",
+      "Help center access",
+      "Email support",
     ],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined',
+    buttonText: "Sign up for free",
+    buttonVariant: "outlined",
+    link : "/Signup"
   },
   {
-    title: 'Pro',
-    subheader: 'Most popular',
-    price: '15',
+    title: "Ready to work for us",
+    subheader: "Get ready",
+    price: "15",
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
+      "Payment on time",
+      "Cash on instant service",
+      "Help center access",
+      "Priority email support",
     ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained',
+    buttonText: "SignUp now",
+    buttonVariant: "contained",
+    link : "/SPSignup"
   },
   {
-    title: 'Enterprise',
-    price: '30',
+    title: "Are you Admin ?",
+    price: "30",
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
+      "Ready to build the product",
     ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined',
+    buttonText: "Sign In",
+    buttonVariant: "outlined",
+    link : "/AdminLogin"
   },
 ];
 
 const footers = [
   {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
+    title: "Company",
+    description: ["Team", "History", "Contact us", "Locations"],
   },
   {
-    title: 'Features',
+    title: "Features",
     description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one',
+      "Cool stuff",
+      "Random feature",
+      "Team feature",
+      "Developer stuff",
+      "Another one",
     ],
   },
   {
-    title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+    title: "Resources",
+    description: [
+      "Resource",
+      "Resource name",
+      "Another resource",
+      "Final resource",
+    ],
   },
   {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use'],
+    title: "Legal",
+    description: ["Privacy policy", "Terms of use"],
   },
 ];
 
-function PricingContent() {
+function Home() {
+  const router = useRouter();
   return (
     <React.Fragment>
-      <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+      <GlobalStyles
+        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+      />
       <CssBaseline />
       <AppBar
         position="static"
@@ -104,17 +118,22 @@ function PricingContent() {
         elevation={0}
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-            
-          </Typography>
-          <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-            Login
-          </Button>
+        <Toolbar sx={{ flexWrap: "wrap" }}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          ></Typography>
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+      <Container
+        disableGutters
+        maxWidth="sm"
+        component="main"
+        sx={{ pt: 8, pb: 6 }}
+      >
         <Typography
           component="h1"
           variant="h2"
@@ -124,10 +143,13 @@ function PricingContent() {
         >
           AMEND
         </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Quickly build an effective pricing table for your potential customers with
-          this layout. It&apos;s built with default MUI components with little
-          customization.
+        <Typography
+          variant="h5"
+          align="center"
+          color="text.secondary"
+          component="p"
+        >
+          To serve services of multiple domains under a single banner “Amend”.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -139,21 +161,21 @@ function PricingContent() {
               item
               key={tier.title}
               xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
+              sm={tier.title === "Enterprise" ? 12 : 6}
               md={4}
             >
               <Card>
                 <CardHeader
                   title={tier.title}
                   subheader={tier.subheader}
-                  titleTypographyProps={{ align: 'center' }}
-                  action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  titleTypographyProps={{ align: "center" }}
+                  action={tier.title === "Pro" ? <StarIcon /> : null}
                   subheaderTypographyProps={{
-                    align: 'center',
+                    align: "center",
                   }}
                   sx={{
                     backgroundColor: (theme) =>
-                      theme.palette.mode === 'light'
+                      theme.palette.mode === "light"
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
                   }}
@@ -161,17 +183,21 @@ function PricingContent() {
                 <CardContent>
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'baseline',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "baseline",
                       mb: 2,
                     }}
                   >
-                    <Typography component="h2" variant="h3" color="text.primary">
-                      ${tier.price}
+                    <Typography
+                      component="h2"
+                      variant="h3"
+                      color="text.primary"
+                    >
+                      {/* ${tier.price} */}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      /mo
+                      {/* /mo */}
                     </Typography>
                   </Box>
                   <ul>
@@ -188,7 +214,7 @@ function PricingContent() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
+                  <Button fullWidth variant={tier.buttonVariant} onClick={()=>{router.replace(tier.link)}}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -198,17 +224,26 @@ function PricingContent() {
         </Grid>
       </Container>
 
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+      <Container
+        disableGutters
+        maxWidth="sm"
+        component="main"
+        sx={{ pt: 8, pb: 6 }}
+      >
         <Typography
           component="h1"
           variant="h2"
           align="center"
           color="text.primary"
           gutterBottom
+        ></Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          color="text.secondary"
+          component="p"
         >
-        </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
-         A worderful team of four.
+          A worderful team of four.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -220,21 +255,21 @@ function PricingContent() {
               item
               key={tier.title}
               xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
+              sm={tier.title === "Enterprise" ? 12 : 6}
               md={4}
             >
               <Card>
                 <CardHeader
                   title={tier.title}
                   subheader={tier.subheader}
-                  titleTypographyProps={{ align: 'center' }}
-                  action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  titleTypographyProps={{ align: "center" }}
+                  action={tier.title === "Pro" ? <StarIcon /> : null}
                   subheaderTypographyProps={{
-                    align: 'center',
+                    align: "center",
                   }}
                   sx={{
                     backgroundColor: (theme) =>
-                      theme.palette.mode === 'light'
+                      theme.palette.mode === "light"
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
                   }}
@@ -242,13 +277,17 @@ function PricingContent() {
                 <CardContent>
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'baseline',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "baseline",
                       mb: 2,
                     }}
                   >
-                    <Typography component="h2" variant="h3" color="text.primary">
+                    <Typography
+                      component="h2"
+                      variant="h3"
+                      color="text.primary"
+                    >
                       ${tier.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
@@ -314,5 +353,5 @@ function PricingContent() {
 }
 
 export default function Pricing() {
-  return <PricingContent />;
+  return <Home />;
 }
